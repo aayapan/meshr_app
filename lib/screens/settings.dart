@@ -19,12 +19,16 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  bool status = false;
+  late bool status;
   final settingsItems = ['Sample 1', 'Sample 2', 'Sample 3'];
   String? value;
-
   final user = FirebaseAuth.instance.currentUser!;
   @override
+  void initState() {
+    // TODO: implement initState
+    status = true; //Initial Status of Setting 1
+    super.initState();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
