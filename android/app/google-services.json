@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "465027589183",
+    "project_id": "meshr-app",
+    "storage_bucket": "meshr-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465027589183:android:31f05f976002fa5063848a",
+        "android_client_info": {
+          "package_name": "com.example.meshr_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465027589183-go7co21is1vqjvvcfvik9r06jd5ft5ad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu4-_ZS8Kqcna03sORxBcXvWNZhi_IZzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "465027589183-go7co21is1vqjvvcfvik9r06jd5ft5ad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
