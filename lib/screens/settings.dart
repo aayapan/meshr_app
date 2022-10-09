@@ -27,6 +27,9 @@ class _SettingsState extends State<Settings> {
   void initState() {
     // TODO: implement initState
     status = true; //Initial Status of Setting 1
+    if (value != null) { //Initial Value of Setting 3 
+      print("Not null");
+    } 
     super.initState();
   }
   Widget build(BuildContext context) {

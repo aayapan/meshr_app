@@ -75,9 +75,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
       final isValid = formKey.currentState!.validate();
       try {
         if (_confirmPassword != _password) {
-          throw FirebaseAuthException(code: "Register Error", message: "Password did not match.");
-        }else if (_confirmPassword == null || _password == null || _email == null || _firstName == null || _lastName == null || _month == null){
-          throw FirebaseAuthException(code: "Register Error", message: "Please complete the Registration Form.");
+          throw FirebaseAuthException(
+              code: "Register Error", message: "Password did not match.");
+        } else if (_confirmPassword == null ||
+            _password == null ||
+            _email == null ||
+            _firstName == null ||
+            _lastName == null ||
+            _month == null ||
+            _confirmPassword == "" ||
+            _password == "" ||
+            _email == "" ||
+            _firstName == "" ||
+            _lastName == "" ||
+            _month == "") {
+          throw FirebaseAuthException(
+              code: "Register Error",
+              message: "Please complete the Registration Form.");
         }
       } on FirebaseAuthException catch (e) {
         print(e.message);
@@ -94,9 +108,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           builder: (contex) => Center(child: CircularProgressIndicator()));
 
       try {
-        
-        await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: _email!, password: _password!);
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _email!, password: _password!);
         await FirebaseAuth.instance.currentUser
             ?.updateDisplayName('$_firstName $_lastName');
         Navigator.of(context).pushAndRemoveUntil(

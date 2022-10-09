@@ -19,7 +19,8 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Future signIn() async {
       try {
-        if (_password == null || _email == null) {
+        if (_password == null || _email == null || _email == "" || _password == "") {
+          print("Empty");
           throw FirebaseAuthException(
               code: "Login Error",
               message: "Please complete the Login Form.");
