@@ -21,8 +21,8 @@ class LoginScreen extends StatelessWidget {
       try {
         if (_password == null || _email == null) {
           throw FirebaseAuthException(
-              code: "Register Error",
-              message: "Please complete the Registration Form.");
+              code: "Login Error",
+              message: "Please complete the Login Form.");
         }
       } on FirebaseAuthException catch (e) {
         print(e.message);
