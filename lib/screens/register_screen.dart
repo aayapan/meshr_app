@@ -87,8 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             _password == "" ||
             _email == "" ||
             _firstName == "" ||
-            _lastName == "" ||
-            _month == "") {
+            _lastName == "") {
           throw FirebaseAuthException(
               code: "Register Error",
               message: "Please complete the Registration Form.");
