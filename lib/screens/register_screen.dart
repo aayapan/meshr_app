@@ -64,7 +64,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             'lastName': _lastName,
             'monthBday': _month,
             'dayBday': _day,
-            'yearBday': _year
+            'yearBday': _year,
+            'settingStatus': false,
+            'settingValue': null
           })
           .then((_) => print('Added'))
           .catchError((error) => print('Add failed: $error'));

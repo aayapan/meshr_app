@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_switch/flutter_switch.dart';
@@ -19,19 +20,47 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  late bool status;
+  bool? status = false;
   final settingsItems = ['Sample 1', 'Sample 2', 'Sample 3'];
-  String? value;
+  int? value = 0;
   final user = FirebaseAuth.instance.currentUser!;
+  final userDB = FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid);
+
+  Future getUserData() async {
+    final snapshot = await userDB.get();
+    if (snapshot.exists) {
+      Map<String, dynamic>? data = snapshot.data();
+      // setState(() {
+      //   print("INIT USER");
+
+      // });
+      int index = 0;
+      int counter = 0;
+      settingsItems.forEach((element) {
+        if (data!['settingValue'] == element) {
+          index = counter;
+        }
+        counter += 1;
+      });
+      setState(() {
+        value = index;
+        status = data!['settingStatus'];
+      });
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
-    status = true; //Initial Status of Setting 1
-    if (value != null) { //Initial Value of Setting 3 
-      print("Not null");
-    } 
+    print('INIT USER');
+    getUserData();
+
     super.initState();
   }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -202,10 +231,13 @@ class _SettingsState extends State<Settings> {
                                 padding: 4.0,
                                 activeColor: Color(0xFFEFB83C),
                                 inactiveColor: Color(0xFF212121),
-                                value: status,
+                                value: status!,
                                 onToggle: (val) {
                                   setState(() {
                                     status = val;
+                                  });
+                                  userDB.update({
+                                    'settingStatus': status,
                                   });
                                 },
                               ),
@@ -298,7 +330,7 @@ class _SettingsState extends State<Settings> {
                                     items: settingsItems
                                         .map(buildMenuItem)
                                         .toList(),
-                                    value: value,
+                                    value: settingsItems[value!],
                                     icon: Icon(
                                       Icons.arrow_drop_down,
                                       color: widget.isClicked
@@ -317,9 +349,18 @@ class _SettingsState extends State<Settings> {
                                       ),
                                     ),
                                     onChanged: (value) {
-                                      setState(() {
-                                        this.value = value;
+                                      int index = 0;
+                                      int counter = 0;
+                                      settingsItems.forEach((element) {
+                                        if (element == value) {
+                                          index = counter;
+                                        }
+                                        counter += 1;
                                       });
+                                      setState(() {
+                                        this.value = index;
+                                      });
+                                      userDB.update({'settingValue': value});
                                     },
                                   ),
                                 ),
@@ -345,7 +386,10 @@ class _SettingsState extends State<Settings> {
                               listen: false);
                           provider.logout();
 
-                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> HomePage()), (Route<dynamic> route) => false);
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()),
+                              (Route<dynamic> route) => false);
                           print("Dito dumaan");
                         },
                         child: Text(
