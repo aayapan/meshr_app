@@ -38,12 +38,12 @@ class _SettingsState extends State<Settings> {
       // });
       int index = 0;
       int counter = 0;
-      settingsItems.forEach((element) {
+      for (var element in settingsItems) {
         if (data!['settingValue'] == element) {
           index = counter;
         }
         counter += 1;
-      });
+      }
       setState(() {
         value = index;
         status = data!['settingStatus'];
