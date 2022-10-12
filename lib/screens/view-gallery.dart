@@ -21,7 +21,6 @@ class ViewGallery extends StatelessWidget {
             color: Color(0xFFEFB83C),
           ),
         ),
-        centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -31,6 +30,12 @@ class ViewGallery extends StatelessWidget {
           color: Color(0xFFEFB83C),
         ),
         actions: [
+          IconButton(
+          onPressed: () {},
+          icon: ImageIcon(AssetImage("assets/images/gdrive-icon.png")),
+          iconSize: 40.0,
+          color: Color(0xFFEFB83C),
+        ),
           IconButton(
           onPressed: () {},
           icon: ImageIcon(AssetImage("assets/images/trash-icon.png")),

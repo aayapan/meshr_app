@@ -501,10 +501,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w500,
                                   fontSize: 15)),
-                          icon: FaIcon(
-                            FontAwesomeIcons.google,
-                            color: Colors.red,
-                          ),
+                          icon: Image(
+                              image:
+                                  AssetImage('assets/images/google-icon.png'),
+                              width: 28,
+                              height: 28,
+                              fit: BoxFit.scaleDown,
+                              alignment: Alignment.center,
+                            ),
                         ),
                       ),
                       SizedBox(

@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   @override
-  void dispose(){
+  void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -35,11 +35,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     Future signIn() async {
       try {
-        if (_password == null || _email == null || _email == "" || _password == "") {
+        if (_password == null ||
+            _email == null ||
+            _email == "" ||
+            _password == "") {
           print("Empty");
           throw FirebaseAuthException(
-              code: "Login Error",
-              message: "Please complete the Login Form.");
+              code: "Login Error", message: "Please complete the Login Form.");
         }
       } on FirebaseAuthException catch (e) {
         print(e.message);
@@ -264,9 +266,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                     fontFamily: 'Roboto',
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15)),
-                            icon: FaIcon(
-                              FontAwesomeIcons.google,
-                              color: Colors.red,
+                            icon: Image(
+                              image:
+                                  AssetImage('assets/images/google-icon.png'),
+                              width: 28,
+                              height: 28,
+                              fit: BoxFit.scaleDown,
+                              alignment: Alignment.center,
                             ),
                           ),
                         ),
