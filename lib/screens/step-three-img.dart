@@ -5,14 +5,14 @@ import 'package:meshr_app/widgets/generate-footer.dart';
 import 'package:meshr_app/widgets/generate-header.dart';
 import 'package:meshr_app/widgets/output-item.dart';
 
-class GenerateStepThree extends StatefulWidget {
-  const GenerateStepThree({Key? key}) : super(key: key); 
+class GenerateStepTwoImage extends StatefulWidget {
+  GenerateStepTwoImage({Key? key,}) : super(key: key); 
 
   @override
-  State<GenerateStepThree> createState() => _GenerateStepThreeState();
+  State<GenerateStepTwoImage> createState() => _GenerateStepTwoImageState();
 }
 
-class _GenerateStepThreeState extends State<GenerateStepThree> {
+class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
 
   int listLength = 3;
   List<String> myList = [];

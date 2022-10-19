@@ -1,19 +1,20 @@
 // ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers
 
 import "package:flutter/material.dart";
+import 'package:meshr_app/screens/step-three-img.dart';
 import 'package:meshr_app/screens/step-two.dart';
 import 'package:meshr_app/widgets/generate-footer.dart';
 import 'package:meshr_app/widgets/generate-header.dart';
 import 'package:meshr_app/widgets/proceed-button.dart';
 
-class GenerateStepOne extends StatefulWidget {
-  const GenerateStepOne({Key? key}) : super(key: key);
+class GenerateStepOneImage extends StatefulWidget {
+  GenerateStepOneImage({Key? key,}) : super(key: key);
 
   @override
-  State<GenerateStepOne> createState() => _GenerateStepOneState();
+  State<GenerateStepOneImage> createState() => _GenerateStepOneImageState();
 }
 
-class _GenerateStepOneState extends State<GenerateStepOne> {
+class _GenerateStepOneImageState extends State<GenerateStepOneImage> {
   String _enteredText = '';
   late int charCounter;
   bool _clickable = false;
@@ -96,7 +97,7 @@ class _GenerateStepOneState extends State<GenerateStepOne> {
                     clickable: _clickable,
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => GenerateStepTwo(inputString: _enteredText,)));
+                    builder: (context) => GenerateStepTwoImage()));
                     },
                   )
                 ],

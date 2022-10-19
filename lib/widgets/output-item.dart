@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:meshr_app/screens/view-output.dart';
 
 class OutputItem extends StatefulWidget {
-  const OutputItem({
+  OutputItem({
     Key? key,
   }) : super(key: key);
 

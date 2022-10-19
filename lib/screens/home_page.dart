@@ -1,3 +1,5 @@
+
+import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -6,7 +8,7 @@ import 'package:meshr_app/screens/login_screen.dart';
 import 'package:meshr_app/screens/main_menu.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

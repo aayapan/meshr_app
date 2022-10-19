@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
 import 'dart:ffi';
 
@@ -12,14 +12,14 @@ import 'package:meshr_app/widgets/list-item.dart';
 import 'package:meshr_app/widgets/user-class.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Gallery extends StatefulWidget {
-  const Gallery({Key? key}) : super(key: key);
+class Gallery3D extends StatefulWidget {
+  Gallery3D({Key? key,}) : super(key: key);
 
   @override
-  State<Gallery> createState() => _GalleryState();
+  State<Gallery3D> createState() => _Gallery3DState();
 }
 
-class _GalleryState extends State<Gallery> {
+class _Gallery3DState extends State<Gallery3D> {
   bool grid = false;
   int listLength = 2;
 
@@ -42,19 +42,6 @@ class _GalleryState extends State<Gallery> {
 
     super.initState();
   }
-  // getData() async {
-  //   final docUser = FirebaseFirestore.instance
-  //       .collection('users')
-  //       .doc('m04TaTo6BhL7okPeMwR2');
-  //   final snapshot = await docUser.get();
-  //   if (snapshot.exists) {
-  //     Map<String, dynamic>? data = snapshot.data();
-  //     paths = data!['paths'];
-  //     filenames = data['filenames']; // <-- The value you want to retrieve.
-  //     // Call setState if needed.
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,22 +104,6 @@ class _GalleryState extends State<Gallery> {
                     color: Color(0xFF2D2B2B),
                     child: grid
                         ?
-                        // FutureBuilder(
-                        //     future: getData(),
-                        //     builder: (context, snapshot) {
-                        //       return GridView.count(
-                        //         crossAxisCount: 2,
-                        //         children:
-                        //             List.generate(paths.length + 1, (index) {
-                        //           return index == paths.length
-                        //               ? GridAddButton()
-                        //               : GridItem(
-                        //                   filename: filenames[index],
-                        //                   path: paths[index]);
-                        //         }),
-                        //       );
-                        //     },
-                        //   )
                         GridView.count(
                             crossAxisCount: 2,
                             children: List.generate(fls.objFileNames.length + 1,
@@ -141,26 +112,10 @@ class _GalleryState extends State<Gallery> {
                                   ? GridAddButton()
                                   : GridItem(
                                       obj: fls.objFileNames[index],
-                                      thumb: fls.thumbFileNames[index]);
+                                      thumb: fls.thumbFileNames[index],);
                             }),
                           )
                         :
-                        // FutureBuilder(
-                        //     future: getData(),
-                        //     builder: (context, snapshot) {
-                        //       return ListView(
-                        //         children:
-                        //             List.generate(paths.length + 1, (index) {
-                        //           return index ==
-                        //                   paths
-                        //                       .length // Paths and Filenames should always have the same length
-                        //               ? ListAddButton()
-                        //               : ListItem(
-                        //                   filename: filenames[index],
-                        //                   path: paths[index]);
-                        //         }),
-                        //       );
-                        //     }),
                         ListView(
                             children: List.generate(fls.objFileNames.length + 1,
                                 (index) {
@@ -170,31 +125,15 @@ class _GalleryState extends State<Gallery> {
                                   ? ListAddButton()
                                   : ListItem(
                                       obj: fls.objFileNames[index],
-                                      thumb: fls.thumbFileNames[index]);
+                                      thumb: fls.thumbFileNames[index],);
                             }),
                           )
-                    // ListView(
-                    //       children: List.generate(listLength + 1, (index) {
-                    //         return index == listLength
-                    //             ? ListAddButton()
-                    //             : ListItem();
-                    //       }),
-                    //     ),
                     ),
               ],
             ),
           ),
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.transparent,
-      //   onPressed: () {},
-      //   child: ImageIcon(
-      //     AssetImage("assets/images/help-icon.png"),
-      //     size: double.infinity,
-      //     color: Color(0xFFEFB83C),
-      //   ),
-      // ),
     );
   }
 }

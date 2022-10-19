@@ -30,6 +30,7 @@ class _ListItemState extends State<ListItem> {
                     builder: (context) => BottomNavigation(
                           isGallery: true,
                           isClicked: true,
+                          isImg: false,
                         )));
           },
           child: Container(

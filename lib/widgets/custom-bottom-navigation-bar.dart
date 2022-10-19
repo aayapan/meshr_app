@@ -4,7 +4,6 @@ import "package:flutter/material.dart";
 import 'package:meshr_app/screens/main_menu.dart';
 
 class CustomNavBar extends StatelessWidget {
-  
   PageController controller;
   int currentIndex;
   bool isGalleryView;
@@ -12,7 +11,7 @@ class CustomNavBar extends StatelessWidget {
       {Key? key,
       required this.controller,
       required this.currentIndex,
-      required this.isGalleryView})
+      required this.isGalleryView,})
       : super(key: key);
 
   @override

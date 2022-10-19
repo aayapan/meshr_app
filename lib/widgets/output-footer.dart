@@ -5,7 +5,7 @@ import "package:flutter/material.dart";
 import 'package:meshr_app/screens/main_menu.dart';
 
 class OutputBottomNav extends StatelessWidget {
-  const OutputBottomNav({
+  OutputBottomNav({
     Key? key,
   }) : super(key: key);
 

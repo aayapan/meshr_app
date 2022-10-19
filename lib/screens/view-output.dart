@@ -1,8 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:meshr_app/widgets/output-footer.dart';
 
 class ViewOutput extends StatelessWidget {
-  const ViewOutput({Key? key}) : super(key: key);
+  ViewOutput({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

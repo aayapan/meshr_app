@@ -13,7 +13,7 @@ import '../provider/google_sign_in.dart';
 
 class Settings extends StatefulWidget {
   final bool isClicked;
-  const Settings({Key? key, required this.isClicked}) : super(key: key);
+  Settings({Key? key, required this.isClicked}) : super(key: key);
 
   @override
   State<Settings> createState() => _SettingsState();

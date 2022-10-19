@@ -12,7 +12,7 @@ class GenerateStepTwo extends StatefulWidget {
   String inputString;
   int currentPageIndex;
   GenerateStepTwo(
-      {Key? key, this.currentPageIndex = 0, required this.inputString})
+      {Key? key, this.currentPageIndex = 0, required this.inputString,})
       : super(key: key);
 
   @override

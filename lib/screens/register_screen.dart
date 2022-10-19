@@ -14,7 +14,7 @@ import 'package:meshr_app/screens/main_menu.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+  RegisterScreen({Key? key,}) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();

@@ -1,12 +1,12 @@
+
 import 'package:flutter/material.dart';
-import 'package:meshr_app/screens/step-three.dart';
+import 'package:meshr_app/screens/step-three-img.dart';
 import 'package:meshr_app/screens/step-two-page-one.dart';
 
 class StepTwoPageFour extends StatelessWidget {
-  
   String textDescription;
   StepTwoPageFour({
-    Key? key, required this.textDescription
+    Key? key, required this.textDescription,
   }) : super(key: key);
 
 
@@ -22,7 +22,7 @@ class StepTwoPageFour extends StatelessWidget {
             TextButton(
               onPressed: (() {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const GenerateStepThree()));
+                    builder: (context) => GenerateStepTwoImage()));
               }),
               child: Container(
                 decoration: BoxDecoration(

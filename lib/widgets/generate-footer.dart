@@ -5,7 +5,7 @@ import "package:flutter/material.dart";
 import 'package:meshr_app/screens/main_menu.dart';
 
 class GenerateBottomNav extends StatelessWidget {
-  const GenerateBottomNav({
+  GenerateBottomNav({
     Key? key,
   }) : super(key: key);
 

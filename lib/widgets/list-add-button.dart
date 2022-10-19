@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import "package:flutter/material.dart";
-import 'package:meshr_app/screens/step-one.dart';
+import 'package:meshr_app/screens/step-one-img.dart';
 
 class ListAddButton extends StatelessWidget {
-  const ListAddButton({Key? key}) : super(key: key);
+  ListAddButton({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class ListAddButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(11.0))),
           onPressed: () {
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => GenerateStepOne()));
+                MaterialPageRoute(builder: (context) => GenerateStepOneImage()));
           },
           child: Container(
             height: 90.0,

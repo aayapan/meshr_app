@@ -1,15 +1,20 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, no_leading_underscores_for_local_identifiers, must_be_immutable
 
 import "package:flutter/material.dart";
-import 'package:meshr_app/screens/gallery.dart';
+import 'package:hive/hive.dart';
+import 'package:meshr_app/data/local-storage.dart';
+import 'package:meshr_app/screens/gallery_3d.dart';
+import 'package:meshr_app/screens/gallery_choose.dart';
 import 'package:meshr_app/screens/settings.dart';
-import 'package:meshr_app/screens/view-gallery.dart';
+import 'package:meshr_app/screens/view-gallery-3d.dart';
+import 'package:meshr_app/screens/view-gallery-img.dart';
 import 'package:meshr_app/widgets/custom-bottom-navigation-bar.dart';
 
 class BottomNavigation extends StatefulWidget {
   bool isGallery;
   bool isClicked;
-  BottomNavigation({Key? key, required this.isGallery, required this.isClicked}) : super(key: key);
+  bool isImg;
+  BottomNavigation({Key? key, required this.isGallery, required this.isClicked, required this.isImg,}) : super(key: key);
 
   @override
   State<BottomNavigation> createState() => _BottomNavigationState();
@@ -20,6 +25,22 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 0;
   bool isGalleryView = false;
 
+  final _myBox = Hive.box('FilesCollection');
+  FilesLocalStorage fls = FilesLocalStorage();
+  late int imgLength;
+  late int objLength;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    List imgList = _myBox.get('IMGLIST');
+    List objList = _myBox.get('OBJLIST');
+    imgLength = imgList.length;
+    objLength = objList.length;
+    super.initState();
+  }
+  
+  
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +64,16 @@ class _BottomNavigationState extends State<BottomNavigation> {
           });
         },
         children: widget.isClicked ? [
-          Settings(isClicked: widget.isClicked),
-          ViewGallery(),
+          Settings(isClicked: widget.isClicked,),
+          widget.isImg ? ViewGalleryImg(): ViewGallery3D(),
         ] : [
-          Settings(isClicked: widget.isClicked),
-          Gallery(),
+          
+          Settings(isClicked: widget.isClicked,),
+          GalleryMain(imgLength: imgLength, objLength: objLength,),
         ],
       ),
       //Custom bottom navigation bar
-      bottomNavigationBar: CustomNavBar(controller: _pageController, currentIndex: _currentIndex, isGalleryView: isGalleryView),
+      bottomNavigationBar: CustomNavBar(controller: _pageController, currentIndex: _currentIndex, isGalleryView: isGalleryView,),
     );
   }
 }

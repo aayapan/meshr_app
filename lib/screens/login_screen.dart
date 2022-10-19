@@ -11,7 +11,7 @@ import 'package:meshr_app/screens/register_screen.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key,}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();

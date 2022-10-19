@@ -4,8 +4,8 @@ import "package:flutter/material.dart";
 
 
 
-class ViewGallery extends StatelessWidget {
-  const ViewGallery({Key? key}) : super(key: key);
+class ViewGallery3D extends StatelessWidget {
+  const ViewGallery3D({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +46,11 @@ class ViewGallery extends StatelessWidget {
       ),
       body: Column(
         children: [
+          Container(
+            color: Color(0xFFEFB83C),
+            height: 2,
+            width: double.infinity,
+          ),
           Expanded(
             child: Container(
               // THIS IS WHERE WE CONTAIN THE 3D OBJECT VIEWER

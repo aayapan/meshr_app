@@ -1,10 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'package:hive/hive.dart';
 import 'package:meshr_app/screens/bottom_navigation.dart';
 import 'package:meshr_app/screens/notification_screen.dart';
-import 'package:meshr_app/screens/step-one.dart';
+import 'package:meshr_app/screens/step-one-3d.dart';
+import 'package:meshr_app/screens/step-one-img.dart';
+import '../data/local-storage.dart';
 import '../widgets/menu_card.dart';
 
 class MainMenu extends StatefulWidget {
@@ -21,12 +25,29 @@ class _MainMenuState extends State<MainMenu> {
   final user = FirebaseAuth.instance.currentUser!;
   String? googleDisplayName;
 
+  final _myBox = Hive.box('FilesCollection');
+  FilesLocalStorage fls = FilesLocalStorage();
+
+  late List<CameraDescription> cameras;
+
   @override
   void initState() {
     // TODO: implement initState
+    initCamera();
+    if (_myBox.get('OBJLIST') == null && _myBox.get('THUMBLIST') == null) {
+      print("INIT"); // Debug purposes
+      fls.createInitialData();
+    } else {
+      print("LOAD"); // Debug purposes
+      fls.loadData();
+    }
     googleDisplayName = user.displayName!.split(" ")[0];
 
     super.initState();
+  }
+
+  void initCamera() async {
+    cameras = await availableCameras();
   }
 
   @override
@@ -94,6 +115,7 @@ class _MainMenuState extends State<MainMenu> {
                       builder: (context) => BottomNavigation(
                             isGallery: true,
                             isClicked: false,
+                            isImg: false,
                           )));
                 },
               ),
@@ -107,8 +129,43 @@ class _MainMenuState extends State<MainMenu> {
                 text: "Generate",
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => GenerateStepOne()));
+                      builder: (context) => GenerateStepOne3D(cameras: cameras)));
                 },
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(horizontal: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => GenerateStepOneImage()));
+                        },
+                        child: Text(
+                          "Text -> Image",
+                          style: TextStyle(
+                              color: Colors.amber,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w700,
+                              fontSize: 17),
+                        )),
+                    TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Image -> Image",
+                          style: TextStyle(
+                              color: Colors.amber,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w700,
+                              fontSize: 17),
+                        )),
+                  ],
+                ),
               ),
             ],
           ),
@@ -125,6 +182,7 @@ class _MainMenuState extends State<MainMenu> {
                     builder: (context) => BottomNavigation(
                           isGallery: false,
                           isClicked: false,
+                          isImg: false,
                         )));
               },
               icon: ImageIcon(AssetImage("assets/images/settings-icon.png")),

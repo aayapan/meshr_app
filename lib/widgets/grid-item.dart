@@ -6,7 +6,7 @@ import 'package:meshr_app/screens/bottom_navigation.dart';
 class GridItem extends StatefulWidget {
   String obj;
   String thumb;
-  GridItem({Key? key, required this.obj, required this.thumb}) : super(key: key);
+  GridItem({Key? key, required this.obj, required this.thumb,}) : super(key: key);
 
   @override
   State<GridItem> createState() => _GridItemState();
@@ -30,6 +30,7 @@ class _GridItemState extends State<GridItem> {
                     builder: (context) => BottomNavigation(
                           isGallery: true,
                           isClicked: true,
+                          isImg: false,
                         )));
           },
           child: Column(
