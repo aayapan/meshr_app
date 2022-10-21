@@ -4,10 +4,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class FilesLocalStorage {
 
-  List objFileNames = [];
-  List thumbFileNames = [];
-  List imageFileNames = [];
-  List? tempImageFileNames = [];
+  List? objFileNames;
+  List? thumbFileNames;
+  List? imageFileNames;
 
   final _myBox = Hive.box('FilesCollection');
 
@@ -15,7 +14,6 @@ class FilesLocalStorage {
     objFileNames = [];
     thumbFileNames = [];
     imageFileNames = [];
-    tempImageFileNames = [];
     updateData();
   }
 
@@ -23,14 +21,12 @@ class FilesLocalStorage {
     objFileNames = _myBox.get('OBJLIST');
     thumbFileNames = _myBox.get('THUMBLIST');
     imageFileNames = _myBox.get('IMGLIST');
-    tempImageFileNames = _myBox.get('TEMPIMG');
   }
 
   void updateData() {
     _myBox.put('OBJLIST', objFileNames);
     _myBox.put('THUMBLIST', thumbFileNames);
     _myBox.put('IMGLIST', imageFileNames);
-    _myBox.put('TEMPIMG', tempImageFileNames);
     print("BOX UPDATED!");
   }
 

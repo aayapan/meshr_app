@@ -103,8 +103,8 @@ class _GalleryImageState extends State<GalleryImage> {
                     child: GridView.count(
                       crossAxisCount: 2,
                       children:
-                          List.generate(fls.imageFileNames.length + 1, (index) {
-                        return index == fls.imageFileNames.length
+                          List.generate(fls.imageFileNames!.length + 1, (index) {
+                        return index == fls.imageFileNames!.length
                             ? GridAddButton(
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
@@ -113,7 +113,7 @@ class _GalleryImageState extends State<GalleryImage> {
                                 },
                               )
                             : GridItemImage(
-                                img: fls.imageFileNames[index],
+                                img: fls.imageFileNames![index],
                               );
                       }),
                     )),

@@ -31,11 +31,17 @@ class _MainMenuState extends State<MainMenu> {
   FilesLocalStorage fls = FilesLocalStorage();
 
   @override
-  void initState(){
+  void initState() {
     // TODO: implement initState
     initClearAppDirectory();
     googleDisplayName = user.displayName!.split(" ")[0];
-
+    if (_myBox.get('OBJLIST') == null && _myBox.get('THUMBLIST') == null) {
+      print("INIT"); // Debug purposes
+      fls.createInitialData();
+    } else {
+      print("LOAD"); // Debug purposes
+      fls.loadData();
+    }
     super.initState();
   }
 
