@@ -33,7 +33,6 @@ class _GenerateStepTwo3DState extends State<GenerateStepTwo3D> {
   final _myBox = Hive.box('FilesCollection');
   FilesLocalStorage fls = FilesLocalStorage();
 
-  List tempImages = [];
   List passImages = [];
 
   Future captureImage() async {
@@ -43,9 +42,6 @@ class _GenerateStepTwo3DState extends State<GenerateStepTwo3D> {
       final img = await saveImagePermanently(image.path);
       print("IMAGE PATH: ${img.path}");
       
-      tempImages = _myBox.get('TEMPIMG');
-      tempImages.add('2.jpeg');
-      _myBox.put('TEMPIMG', tempImages);
 
       setState(() {
         _image = img;
@@ -55,10 +51,13 @@ class _GenerateStepTwo3DState extends State<GenerateStepTwo3D> {
     }
   }
 
-  Future<File> saveImagePermanently(String imagePath) async {
+  Future<File> saveImagePermanently(
+      String imagePath) async {
     final directory = await getExternalStorageDirectory();
-    final image = File('${directory?.path}/2.jpeg');
 
+    final name = basename(imagePath);
+    final image =
+        File('${directory?.path}/$name.jpeg');
     return File(imagePath).copy(image.path);
   }
 

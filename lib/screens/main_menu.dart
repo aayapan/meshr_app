@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:hive/hive.dart';
@@ -7,6 +9,7 @@ import 'package:meshr_app/screens/bottom_navigation.dart';
 import 'package:meshr_app/screens/notification_screen.dart';
 import 'package:meshr_app/screens/step-one-3d.dart';
 import 'package:meshr_app/screens/step-one-img.dart';
+import 'package:path_provider/path_provider.dart';
 import '../data/local-storage.dart';
 import '../widgets/menu_card.dart';
 
@@ -27,19 +30,27 @@ class _MainMenuState extends State<MainMenu> {
   final _myBox = Hive.box('FilesCollection');
   FilesLocalStorage fls = FilesLocalStorage();
 
-
   @override
-  void initState() {
+  void initState(){
     // TODO: implement initState
-    List emptyList = [];
-    _myBox.put('TEMPIMG', emptyList);
-
+    initClearAppDirectory();
     googleDisplayName = user.displayName!.split(" ")[0];
 
     super.initState();
   }
 
-  
+  void initClearAppDirectory() async {
+    print("CLEAR DIRECTORY");
+    final directory = await getExternalStorageDirectory();
+    deleteFilesExceptExtension('png', '${directory!.path}/');
+  }
+
+  void deleteFilesExceptExtension(String suffix, String path) {
+    final dir = Directory(path);
+    dir.list(recursive: true).listen((file) {
+      if (file is File && !file.path.endsWith(suffix)) file.deleteSync();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

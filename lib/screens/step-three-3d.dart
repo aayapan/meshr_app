@@ -35,21 +35,16 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
   final _myBox = Hive.box('FilesCollection');
   FilesLocalStorage fls = FilesLocalStorage();
 
-  List tempImages = [];
   List passImages = [];
 
   bool _clickable = false;
 
-  Future captureImage() async {
+  Future captureImage(bool update, int index) async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
       final img = await saveImagePermanently(image.path);
       print("IMAGE PATH: ${img.path}");
-
-      tempImages = _myBox.get('TEMPIMG');
-      tempImages.add('${widget.displayImages.length + 1}.jpeg');
-      _myBox.put('TEMPIMG', tempImages);
 
       setState(() {
         _image = img;
@@ -61,17 +56,23 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
 
   Future<File> saveImagePermanently(String imagePath) async {
     final directory = await getExternalStorageDirectory();
-    final image =
-        File('${directory?.path}/${widget.displayImages.length + 1}.jpeg');
+
+    final name = basename(imagePath);
+    final image = File('${directory?.path}/$name.jpeg');
     return File(imagePath).copy(image.path);
+  }
+
+  void deleteFilesExceptExtension(String suffix, String path) {
+    final dir = Directory(path);
+    dir.list(recursive: true).listen((file) {
+      if (file is File && !file.path.endsWith(suffix)) file.deleteSync();
+    });
   }
 
   @override
   void initState() {
     // TODO: implement initState
     passImages = widget.displayImages;
-    List sample = _myBox.get('TEMPIMG');
-    print("TEMP IMAGES: $sample");
     print(widget.displayImages);
 
     if (passImages.length >= 3) {
@@ -114,39 +115,94 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Container(
-                        height: 110,
-                        width: 110,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 2, color: Colors.white),
-                            color: Colors.transparent),
-                        child: Image.file(widget.displayImages[0],
-                            fit: BoxFit.cover),
-                      ),
-                      Container(
-                        height: 110,
-                        width: 110,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 2, color: Colors.white),
-                            color: Colors.transparent),
-                        child: Image.file(
-                          widget.displayImages[1],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
                       GestureDetector(
                         onTap: () {
-                          captureImage().then((value) {
+                          captureImage(true, 0).then((value) {
                             if (_image == null) {
                               setState(() {});
                             } else {
-                              passImages.add(_image);
+                              setState(() {
+                                passImages[0] = _image;
+                              });
+                              print("Change Navigation");
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) => GenerateStepThree3D(
                                           displayImages: passImages)));
                             }
                           });
+                        },
+                        child: Container(
+                          height: 110,
+                          width: 110,
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 2, color: Colors.white),
+                              color: Colors.transparent),
+                          child: Image.file(widget.displayImages[0],
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          captureImage(true, 1).then((value) {
+                            if (_image == null) {
+                              setState(() {});
+                            } else {
+                              setState(() {
+                                passImages[1] = _image;
+                              });
+                              print("Change Navigation");
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => GenerateStepThree3D(
+                                          displayImages: passImages)));
+                            }
+                          });
+                        },
+                        child: Container(
+                          height: 110,
+                          width: 110,
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 2, color: Colors.white),
+                              color: Colors.transparent),
+                          child: Image.file(
+                            widget.displayImages[1],
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          if (widget.displayImages.length < 3) {
+                            captureImage(false, 2).then((value) {
+                              if (_image == null) {
+                                setState(() {});
+                              } else {
+                                passImages.add(_image);
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GenerateStepThree3D(
+                                                displayImages: passImages)));
+                              }
+                            });
+                          } else {
+                            captureImage(true, 2).then((value) {
+                              if (_image == null) {
+                                setState(() {});
+                              } else {
+                                setState(() {
+                                  passImages[2] = _image;
+                                });
+                                print("Change Navigation");
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GenerateStepThree3D(
+                                                displayImages: passImages)));
+                              }
+                            });
+                          }
                         },
                         child: Container(
                             height: 110,
@@ -184,17 +240,36 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          captureImage().then((value) {
-                            if (_image == null) {
-                              setState(() {});
-                            } else {
-                              passImages.add(_image);
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) => GenerateStepThree3D(
-                                          displayImages: passImages)));
-                            }
-                          });
+                          if (widget.displayImages.length < 4) {
+                            captureImage(false, 3).then((value) {
+                              if (_image == null) {
+                                setState(() {});
+                              } else {
+                                passImages.add(_image);
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GenerateStepThree3D(
+                                                displayImages: passImages)));
+                              }
+                            });
+                          } else {
+                            captureImage(true, 3).then((value) {
+                              if (_image == null) {
+                                setState(() {});
+                              } else {
+                                setState(() {
+                                  passImages[3] = _image;
+                                });
+                                print("Change Navigation");
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GenerateStepThree3D(
+                                                displayImages: passImages)));
+                              }
+                            });
+                          }
                         },
                         child: Visibility(
                           visible: passImages.length >= 3,
@@ -230,17 +305,36 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          captureImage().then((value) {
-                            if (_image == null) {
-                              setState(() {});
-                            } else {
-                              passImages.add(_image);
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) => GenerateStepThree3D(
-                                          displayImages: passImages)));
-                            }
-                          });
+                          if (widget.displayImages.length < 5) {
+                            captureImage(false, 4).then((value) {
+                              if (_image == null) {
+                                setState(() {});
+                              } else {
+                                passImages.add(_image);
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GenerateStepThree3D(
+                                                displayImages: passImages)));
+                              }
+                            });
+                          } else {
+                            captureImage(true, 4).then((value) {
+                              if (_image == null) {
+                                setState(() {});
+                              } else {
+                                setState(() {
+                                  passImages[4] = _image;
+                                });
+                                print("Change Navigation");
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GenerateStepThree3D(
+                                                displayImages: passImages)));
+                              }
+                            });
+                          }
                         },
                         child: Visibility(
                           visible: passImages.length >= 4,
@@ -273,17 +367,36 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          captureImage().then((value) {
-                            if (_image == null) {
-                              setState(() {});
-                            } else {
-                              passImages.add(_image);
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) => GenerateStepThree3D(
-                                          displayImages: passImages)));
-                            }
-                          });
+                          if (widget.displayImages.length < 6) {
+                            captureImage(false, 5).then((value) {
+                              if (_image == null) {
+                                setState(() {});
+                              } else {
+                                passImages.add(_image);
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GenerateStepThree3D(
+                                                displayImages: passImages)));
+                              }
+                            });
+                          } else {
+                            captureImage(true, 5).then((value) {
+                              if (_image == null) {
+                                setState(() {});
+                              } else {
+                                setState(() {
+                                  passImages[5] = _image;
+                                });
+                                print("Change Navigation");
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GenerateStepThree3D(
+                                                displayImages: passImages)));
+                              }
+                            });
+                          }
                         },
                         child: Visibility(
                           visible: passImages.length >= 5,
