@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:meshr_app/screens/step-three-img.dart';
+import 'package:meshr_app/screens/step-two-img.dart';
 import 'package:meshr_app/screens/step-two-page-one.dart';
 
 class StepTwoPageFour extends StatelessWidget {

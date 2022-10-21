@@ -5,8 +5,9 @@ import "package:flutter/material.dart";
 import 'package:meshr_app/screens/main_menu.dart';
 
 class GenerateBottomNav extends StatelessWidget {
+  VoidCallback helpFunction;
   GenerateBottomNav({
-    Key? key,
+    Key? key, required this.helpFunction
   }) : super(key: key);
 
   @override
@@ -41,9 +42,7 @@ class GenerateBottomNav extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {
-              
-            },
+            onTap: helpFunction,
             child: Container(
               margin: EdgeInsets.only(right: 20),
               padding: EdgeInsets.zero,

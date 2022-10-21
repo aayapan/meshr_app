@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import "package:flutter/material.dart";
+import 'package:meshr_app/screens/image-help.dart';
 import 'package:meshr_app/widgets/generate-footer.dart';
 import 'package:meshr_app/widgets/generate-header.dart';
 import 'package:meshr_app/widgets/output-item.dart';
@@ -53,7 +54,7 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
         child: Column(
           children: [
             GenerateHeaderText(
-                header: "Step 3:", subheader: "Choose your desired output"),
+                header: "Step 2:", subheader: "Choose your desired output"),
             Expanded(
                 child: Container(
               child: GridView.count(
@@ -66,7 +67,11 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
           ],
         ),
       ),
-      bottomNavigationBar: GenerateBottomNav(),
+      bottomNavigationBar: GenerateBottomNav(helpFunction: (){
+        Navigator.push(context, MaterialPageRoute(builder: ((context) {
+          return ImageHelp(header: "Choose!", footer: "After reviewing the input, and you agreed with how the system understood your description, then it's time to choose. \n\n Choose from a set of generated 2D images that are based from your description. Tapping a design will generate a 3D version of that picture.",);
+        })));
+      },),
     );
   }
 }

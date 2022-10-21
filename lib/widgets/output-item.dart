@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:meshr_app/screens/view-output.dart';
+import 'package:meshr_app/screens/view-output-img.dart';
 
 class OutputItem extends StatefulWidget {
   OutputItem({
@@ -29,7 +29,7 @@ class _OutputItemState extends State<OutputItem> {
                   borderRadius: BorderRadius.circular(11.0))),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ViewOutput()));
+                    builder: (context) => ViewOutputImage()));
           },
           child: Center(
             child: Text(

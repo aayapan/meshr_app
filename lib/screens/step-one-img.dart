@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers
 
 import "package:flutter/material.dart";
-import 'package:meshr_app/screens/step-three-img.dart';
+import 'package:meshr_app/screens/image-help.dart';
+import 'package:meshr_app/screens/step-two-img.dart';
 import 'package:meshr_app/screens/step-two.dart';
 import 'package:meshr_app/widgets/generate-footer.dart';
 import 'package:meshr_app/widgets/generate-header.dart';
@@ -106,7 +107,11 @@ class _GenerateStepOneImageState extends State<GenerateStepOneImage> {
           ],
         ),
       ),
-      bottomNavigationBar: GenerateBottomNav(),
+      bottomNavigationBar: GenerateBottomNav(helpFunction: (){
+        Navigator.push(context, MaterialPageRoute(builder: ((context) {
+          return ImageHelp(header: "Define!", footer: "Find the right words that would define your target design, the more specific your definition is the more specific the output will be.",);
+        })));
+      },),
     );
   }
 }

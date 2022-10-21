@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -14,10 +13,10 @@ import 'package:meshr_app/screens/main_menu.dart';
 import 'package:meshr_app/screens/notification_screen.dart';
 import 'package:meshr_app/screens/settings.dart';
 import 'package:meshr_app/screens/step-one-img.dart';
-import 'package:meshr_app/screens/step-three-img.dart';
+import 'package:meshr_app/screens/step-two-img.dart';
 import 'package:meshr_app/screens/step-two.dart';
 import 'package:meshr_app/screens/view-gallery-3d.dart';
-import 'package:meshr_app/screens/view-output.dart';
+import 'package:meshr_app/screens/view-output-img.dart';
 import 'package:provider/provider.dart';
 
 

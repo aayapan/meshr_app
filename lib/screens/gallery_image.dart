@@ -5,6 +5,7 @@ import 'dart:ffi';
 import "package:flutter/material.dart";
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:meshr_app/data/local-storage.dart';
+import 'package:meshr_app/screens/step-one-img.dart';
 import 'package:meshr_app/widgets/grid-add-button.dart';
 import 'package:meshr_app/widgets/grid-item.dart';
 import 'package:meshr_app/widgets/list-add-button.dart';
@@ -15,7 +16,9 @@ import '../widgets/grid-item-image.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GalleryImage extends StatefulWidget {
-  GalleryImage({Key? key,}) : super(key: key);
+  GalleryImage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<GalleryImage> createState() => _GalleryImageState();
@@ -102,9 +105,16 @@ class _GalleryImageState extends State<GalleryImage> {
                       children:
                           List.generate(fls.imageFileNames.length + 1, (index) {
                         return index == fls.imageFileNames.length
-                            ? GridAddButton()
+                            ? GridAddButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          GenerateStepOneImage()));
+                                },
+                              )
                             : GridItemImage(
-                                img: fls.imageFileNames[index],);
+                                img: fls.imageFileNames[index],
+                              );
                       }),
                     )),
               ],

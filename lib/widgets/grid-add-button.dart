@@ -4,7 +4,8 @@ import "package:flutter/material.dart";
 import 'package:meshr_app/screens/step-one-img.dart';
 
 class GridAddButton extends StatelessWidget {
-  GridAddButton({Key? key,}) : super(key: key);
+  VoidCallback onPressed;
+  GridAddButton({Key? key, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +19,7 @@ class GridAddButton extends StatelessWidget {
               primary: Color(0xFFEFB83C),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(11.0))),
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => GenerateStepOneImage()));
-          },
+          onPressed: onPressed,
           child: Container(
             height: 90.0,
             width: screenWidth,

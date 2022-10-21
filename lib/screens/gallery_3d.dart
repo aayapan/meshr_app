@@ -5,6 +5,7 @@ import 'dart:ffi';
 import "package:flutter/material.dart";
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:meshr_app/data/local-storage.dart';
+import 'package:meshr_app/screens/step-one-3d.dart';
 import 'package:meshr_app/widgets/grid-add-button.dart';
 import 'package:meshr_app/widgets/grid-item.dart';
 import 'package:meshr_app/widgets/list-add-button.dart';
@@ -13,7 +14,9 @@ import 'package:meshr_app/widgets/user-class.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Gallery3D extends StatefulWidget {
-  Gallery3D({Key? key,}) : super(key: key);
+  Gallery3D({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<Gallery3D> createState() => _Gallery3DState();
@@ -35,13 +38,14 @@ class _Gallery3DState extends State<Gallery3D> {
     if (_myBox.get('OBJLIST') == null && _myBox.get('THUMBLIST') == null) {
       print("INIT"); // Debug purposes
       fls.createInitialData();
-    }else{
+    } else {
       print("LOAD"); // Debug purposes
       fls.loadData();
     }
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,32 +107,45 @@ class _Gallery3DState extends State<Gallery3D> {
                     // height: 300, //570 if no navbar
                     color: Color(0xFF2D2B2B),
                     child: grid
-                        ?
-                        GridView.count(
+                        ? GridView.count(
                             crossAxisCount: 2,
                             children: List.generate(fls.objFileNames.length + 1,
                                 (index) {
                               return index == fls.objFileNames.length
-                                  ? GridAddButton()
+                                  ? GridAddButton(
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    GenerateStepOne3D()));
+                                      },
+                                    )
                                   : GridItem(
                                       obj: fls.objFileNames[index],
-                                      thumb: fls.thumbFileNames[index],);
+                                      thumb: fls.thumbFileNames[index],
+                                    );
                             }),
                           )
-                        :
-                        ListView(
+                        : ListView(
                             children: List.generate(fls.objFileNames.length + 1,
                                 (index) {
                               return index ==
                                       fls.objFileNames
                                           .length // Paths and Filenames should always have the same length
-                                  ? ListAddButton()
+                                  ? ListAddButton(
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    GenerateStepOne3D()));
+                                      },
+                                    )
                                   : ListItem(
                                       obj: fls.objFileNames[index],
-                                      thumb: fls.thumbFileNames[index],);
+                                      thumb: fls.thumbFileNames[index],
+                                    );
                             }),
-                          )
-                    ),
+                          )),
               ],
             ),
           ),

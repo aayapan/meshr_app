@@ -97,7 +97,7 @@ class _GenerateStepTwoState extends State<GenerateStepTwo> {
           ),
         ),
       ),
-      bottomNavigationBar: GenerateBottomNav(),
+      bottomNavigationBar: GenerateBottomNav(helpFunction: (){},),
     );
   }
 }
