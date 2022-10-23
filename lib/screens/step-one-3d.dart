@@ -35,7 +35,7 @@ class _GenerateStepOne3DState extends State<GenerateStepOne3D> {
 
   Future captureImage() async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      final image = await ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.rear);
       if (image == null) return;
       final img = await saveImagePermanently(image.path);
       print("IMAGE PATH: ${img.path}");

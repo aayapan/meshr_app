@@ -102,14 +102,66 @@ class _GalleryImageState extends State<GalleryImage> {
                     color: Color(0xFF2D2B2B),
                     child: GridView.count(
                       crossAxisCount: 2,
-                      children:
-                          List.generate(fls.imageFileNames!.length + 1, (index) {
+                      children: List.generate(fls.imageFileNames!.length + 1,
+                          (index) {
                         return index == fls.imageFileNames!.length
                             ? GridAddButton(
                                 onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          GenerateStepOneImage()));
+                                  showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return Container(
+                                          color: Color(0xFFEFB83C),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              ListTile(
+                                                leading: Icon(
+                                                    Icons.text_format,
+                                                    size: 40,
+                                                    color: Color(0xFF2D2B2B)),
+                                                title: Text(
+                                                  'Text-to-Image',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 25,
+                                                    fontWeight: FontWeight.w300,
+                                                    color: Color(0xFF2D2B2B),
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              GenerateStepOneImage()));
+                                                },
+                                              ),
+                                              ListTile(
+                                                leading: Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 7),
+                                                    child: Icon(
+                                                      Icons.image_search,
+                                                      size: 30,
+                                                      color: Color(0xFF2D2B2B),
+                                                    )),
+                                                title: Text(
+                                                  'Image-to-Image',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 25,
+                                                    fontWeight: FontWeight.w300,
+                                                    color: Color(0xFF2D2B2B),
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      });
                                 },
                               )
                             : GridItemImage(
