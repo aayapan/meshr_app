@@ -11,9 +11,9 @@ class FilesLocalStorage {
   final _myBox = Hive.box('FilesCollection');
 
   void createInitialData() {
-    objFileNames = [];
-    thumbFileNames = [];
-    imageFileNames = [];
+    objFileNames = ['obj1', 'obj2'];
+    thumbFileNames = ['thumb1', 'thumb2'];
+    imageFileNames = ['img1', 'img2'];
     updateData();
   }
 

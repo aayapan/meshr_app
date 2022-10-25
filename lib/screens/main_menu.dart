@@ -6,11 +6,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:hive/hive.dart';
 import 'package:meshr_app/screens/bottom_navigation.dart';
+import 'package:meshr_app/screens/drawing_page.dart';
 import 'package:meshr_app/screens/notification_screen.dart';
 import 'package:meshr_app/screens/step-one-3d.dart';
 import 'package:meshr_app/screens/step-one-img.dart';
 import 'package:path_provider/path_provider.dart';
 import '../data/local-storage.dart';
+import '../widgets/menu-card2.dart';
 import '../widgets/menu_card.dart';
 
 class MainMenu extends StatefulWidget {
@@ -48,7 +50,7 @@ class _MainMenuState extends State<MainMenu> {
   void initClearAppDirectory() async {
     print("CLEAR DIRECTORY");
     final directory = await getExternalStorageDirectory();
-    deleteFilesExceptExtension('png', '${directory!.path}/');
+    deleteFilesExceptExtension('txt', '${directory!.path}/');
   }
 
   void deleteFilesExceptExtension(String suffix, String path) {
@@ -61,125 +63,188 @@ class _MainMenuState extends State<MainMenu> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 40,
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/bg-mainmenu.png"),
+                fit: BoxFit.cover,
               ),
-              Container(
-                margin: EdgeInsets.only(left: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "MESHR",
-                      style: TextStyle(
-                        fontFamily: "Roboto",
-                        fontSize: 45,
-                        color: Color(0xFFEFB83C),
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => NotificationScreen()));
-                      },
-                      icon: ImageIcon(
-                        AssetImage("assets/images/bell-icon.png"),
-                      ),
-                      iconSize: 45,
-                      color: Color(0xFFEFB83C),
-                    ),
-                  ],
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 40,
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 30),
-                width: screenWidth,
-                child: Text(
-                  "Hi, ${googleDisplayName!}",
-                  style: TextStyle(
-                    fontFamily: "Roboto",
-                    fontSize: 32,
-                    fontWeight: FontWeight.w100,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 85,
-              ),
-              MainMenuCard(
-                width: screenWidth,
-                image: "assets/images/book-image.png",
-                imageWidth: 285.0,
-                text: "View Project",
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => BottomNavigation(
-                            isGallery: true,
-                            isClicked: false,
-                            isImg: false,
-                          )));
-                },
-              ),
-              SizedBox(
-                height: 70,
-              ),
-              MainMenuCard(
-                width: screenWidth,
-                image: "assets/images/cube-image.png",
-                imageWidth: 176.0,
-                text: "Generate",
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => GenerateStepOne3D()));
-                },
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
+                Container(
+                  margin: EdgeInsets.only(left: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "MESHR",
+                        style: TextStyle(
+                          fontFamily: "Roboto",
+                          fontSize: 45,
+                          color: Color(0xFFEFB83C),
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      IconButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => GenerateStepOneImage()));
+                              builder: (context) => NotificationScreen()));
                         },
-                        child: Text(
-                          "Text -> Image",
-                          style: TextStyle(
-                              color: Colors.amber,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w700,
-                              fontSize: 17),
-                        )),
-                    TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Image -> Image",
-                          style: TextStyle(
-                              color: Colors.amber,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w700,
-                              fontSize: 17),
-                        )),
-                  ],
+                        icon: ImageIcon(
+                          AssetImage("assets/images/bell-icon.png"),
+                        ),
+                        iconSize: 45,
+                        color: Color(0xFFEFB83C),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                Container(
+                  margin: EdgeInsets.only(left: 30),
+                  width: screenWidth,
+                  child: Text(
+                    "Hi, ${googleDisplayName!}",
+                    style: TextStyle(
+                      fontFamily: "Roboto",
+                      fontSize: 32,
+                      fontWeight: FontWeight.w100,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 45,
+                ),
+                MainMenuCard(
+                  width: screenWidth,
+                  image: "assets/images/book-image.png",
+                  imageWidth: 220.0,
+                  text: "View Project",
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => BottomNavigation(
+                              isGallery: true,
+                              isClicked: false,
+                              isImg: false,
+                            )));
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 30),
+                  width: double.infinity,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        height: 1,
+                        color: Colors.grey,
+                      ),
+                      Container(
+                        width: 70,
+                        color: Colors.white,
+                        child: Center(
+                            child: Text(
+                          'Generate',
+                          style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w300,
+                              fontSize: 15),
+                        )),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                MainMenuCard2(
+                  width: screenWidth,
+                  image: 'assets/images/Txt2Image.png',
+                  text: "Text-to-Image",
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => GenerateStepOneImage()));
+                  },
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                MainMenuCard2(
+                  width: screenWidth,
+                  image: "assets/images/Image2Image.png",
+                  text: "Image-to-Image",
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => DrawingPage()));
+                  },
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                MainMenuCard2(
+                  width: screenWidth,
+                  image: "assets/images/Image2Mesh.png",
+                  text: "Image-to-Mesh",
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => GenerateStepOne3D()));
+                  },
+                ),
+                SizedBox(
+                  height: 100,
+                ),
+
+                // Container(
+                //   width: double.infinity,
+                //   margin: EdgeInsets.symmetric(horizontal: 30),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       TextButton(
+                //           onPressed: () {
+                //             Navigator.of(context).push(MaterialPageRoute(
+                //                 builder: (context) => GenerateStepOneImage()));
+                //           },
+                //           child: Text(
+                //             "Text -> Image",
+                //             style: TextStyle(
+                //                 color: Colors.amber,
+                //                 fontFamily: 'Roboto',
+                //                 fontWeight: FontWeight.w700,
+                //                 fontSize: 17),
+                //           )),
+                //       TextButton(
+                //           onPressed: () {},
+                //           child: Text(
+                //             "Image -> Image",
+                //             style: TextStyle(
+                //                 color: Colors.amber,
+                //                 fontFamily: 'Roboto',
+                //                 fontWeight: FontWeight.w700,
+                //                 fontSize: 17),
+                //           )),
+                //     ],
+                //   ),
+                // ),
+              ],
+            ),
           ),
         ),
       ),
       bottomNavigationBar: Container(
+        color: Colors.white,
         margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

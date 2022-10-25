@@ -32,8 +32,9 @@ class _MainMenuCardState extends State<MainMenuCard> {
             BoxShadow(
                 color: Colors.black54,
                 blurRadius: 1.0,
-                offset: Offset(0.0, 3.0)),
-          ]),
+                offset: Offset(0.0, 1.0)),
+          ],
+          border: Border.all(width: 2,color: Colors.black)),
       margin: EdgeInsets.only(left: 30, right: 30),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -43,21 +44,21 @@ class _MainMenuCardState extends State<MainMenuCard> {
         onPressed: widget.onPressed,
         child: Container(
           padding: EdgeInsets.zero,
-          height: 130,
+          height: 110,
           width: widget.width,
           child: Stack(
             alignment: Alignment.topRight,
             clipBehavior: Clip.none,
             children: [
               Positioned(
-                  top: -60,
-                  right: -17,
+                  bottom: -10,
+                  right: -40,
                   width: widget.imageWidth,
                   child: GestureDetector(
                       onTap: widget.onPressed,
                       child: Image.asset(widget.image))),
               Positioned(
-                bottom: 10,
+                top: 15,
                 left: 2,
                 child: Text(
                   widget.text,
