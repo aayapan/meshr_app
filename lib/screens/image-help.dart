@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 
-class ImageHelp extends StatelessWidget {
+class HelpScreen extends StatelessWidget {
   String header;
   String footer;
-  ImageHelp({
+  HelpScreen({
     Key? key, required this.header, required this.footer
   }) : super(key: key);
 

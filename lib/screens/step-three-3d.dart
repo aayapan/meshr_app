@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:meshr_app/data/local-storage.dart';
 import 'package:meshr_app/screens/main_menu.dart';
 import 'package:meshr_app/screens/step-two-3d.dart';
-import 'package:meshr_app/screens/step-two-img.dart';
+import 'package:meshr_app/screens/step-two-txt.dart';
 import 'package:meshr_app/screens/step-two.dart';
 import 'package:meshr_app/screens/view-output-3d.dart';
 import 'package:meshr_app/widgets/generate-footer.dart';
@@ -41,7 +41,8 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
 
   Future captureImage(bool update, int index) async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.rear);
+      final image = await ImagePicker().pickImage(
+          source: ImageSource.camera, preferredCameraDevice: CameraDevice.rear);
       if (image == null) return;
       final img = await saveImagePermanently(image.path);
       print("IMAGE PATH: ${img.path}");

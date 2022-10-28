@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:meshr_app/data/local-storage.dart';
 import 'package:meshr_app/screens/drawing_page.dart';
 import 'package:meshr_app/screens/step-one-img.dart';
+import 'package:meshr_app/screens/step-one-txt.dart';
 import 'package:meshr_app/widgets/grid-add-button.dart';
 import 'package:meshr_app/widgets/grid-item.dart';
 import 'package:meshr_app/widgets/list-add-button.dart';
@@ -134,7 +135,7 @@ class _GalleryImageState extends State<GalleryImage> {
                                                   Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              GenerateStepOneImage()));
+                                                              GenerateStepOneText()));
                                                 },
                                               ),
                                               ListTile(
@@ -159,7 +160,7 @@ class _GalleryImageState extends State<GalleryImage> {
                                                   Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              DrawingPage()));
+                                                              GenerateStepOneImage()));
                                                 },
                                               ),
                                             ],

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
 
 import 'dart:async';
 import 'dart:io';
@@ -11,15 +11,18 @@ import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:meshr_app/screens/drawn_line.dart';
 import 'package:meshr_app/screens/sketcher.dart';
+import 'package:meshr_app/screens/step-two-image.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DrawingPage extends StatefulWidget {
+  const DrawingPage({Key? key}) : super(key: key);
+
   @override
   _DrawingPageState createState() => _DrawingPageState();
 }
 
 class _DrawingPageState extends State<DrawingPage> {
-  GlobalKey _globalKey = new GlobalKey();
+  final GlobalKey _globalKey = GlobalKey();
   List<DrawnLine> lines = <DrawnLine>[];
   late DrawnLine? line;
   Color selectedColor = Colors.black;
@@ -98,7 +101,13 @@ class _DrawingPageState extends State<DrawingPage> {
       floatingActionButton: FloatingActionButton(
         heroTag: 'saveAndProceed',
         backgroundColor: Color(0xFFEFB83C),
-        onPressed: save,
+        onPressed: (){
+          save().then((value) {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context){
+              return GenerateStepTwoImage();
+            }));
+          });
+        },
         child: Icon(
           Icons.arrow_right_alt_rounded,
           size: 50.0,

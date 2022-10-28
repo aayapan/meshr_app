@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:meshr_app/data/local-storage.dart';
 import 'package:meshr_app/screens/main_menu.dart';
 import 'package:meshr_app/screens/step-three-3d.dart';
-import 'package:meshr_app/screens/step-two-img.dart';
+import 'package:meshr_app/screens/step-two-txt.dart';
 import 'package:meshr_app/screens/step-two.dart';
 import 'package:meshr_app/widgets/generate-footer.dart';
 import 'package:meshr_app/widgets/generate-header.dart';

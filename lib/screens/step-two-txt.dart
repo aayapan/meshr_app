@@ -6,14 +6,14 @@ import 'package:meshr_app/widgets/generate-footer.dart';
 import 'package:meshr_app/widgets/generate-header.dart';
 import 'package:meshr_app/widgets/output-item.dart';
 
-class GenerateStepTwoImage extends StatefulWidget {
-  GenerateStepTwoImage({Key? key,}) : super(key: key); 
+class GenerateStepTwoText extends StatefulWidget {
+  GenerateStepTwoText({Key? key,}) : super(key: key); 
 
   @override
-  State<GenerateStepTwoImage> createState() => _GenerateStepTwoImageState();
+  State<GenerateStepTwoText> createState() => _GenerateStepTwoTextState();
 }
 
-class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
+class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
 
   int listLength = 3;
   List<String> myList = [];
@@ -69,7 +69,7 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
       ),
       bottomNavigationBar: GenerateBottomNav(helpFunction: (){
         Navigator.push(context, MaterialPageRoute(builder: ((context) {
-          return ImageHelp(header: "Choose!", footer: "After reviewing the input, and you agreed with how the system understood your description, then it's time to choose. \n\n Choose from a set of generated 2D images that are based from your description. Tapping a design will generate a 3D version of that picture.",);
+          return HelpScreen(header: "Choose!", footer: "After reviewing the input, and you agreed with how the system understood your description, then it's time to choose. \n\n Choose from a set of generated 2D images that are based from your description. Tapping a design will generate a 3D version of that picture.",);
         })));
       },),
     );

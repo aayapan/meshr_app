@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import "package:flutter/material.dart";
-import 'package:meshr_app/screens/step-one-img.dart';
+import 'package:meshr_app/screens/step-one-txt.dart';
 
 class ListAddButton extends StatelessWidget {
   VoidCallback onPressed;

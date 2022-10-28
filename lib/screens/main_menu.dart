@@ -10,6 +10,7 @@ import 'package:meshr_app/screens/drawing_page.dart';
 import 'package:meshr_app/screens/notification_screen.dart';
 import 'package:meshr_app/screens/step-one-3d.dart';
 import 'package:meshr_app/screens/step-one-img.dart';
+import 'package:meshr_app/screens/step-one-txt.dart';
 import 'package:path_provider/path_provider.dart';
 import '../data/local-storage.dart';
 import '../widgets/menu-card2.dart';
@@ -175,7 +176,7 @@ class _MainMenuState extends State<MainMenu> {
                   text: "Text-to-Image",
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => GenerateStepOneImage()));
+                        builder: (context) => GenerateStepOneText()));
                   },
                 ),
                 SizedBox(
@@ -187,7 +188,7 @@ class _MainMenuState extends State<MainMenu> {
                   text: "Image-to-Image",
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => DrawingPage()));
+                        builder: (context) => GenerateStepOneImage()));
                   },
                 ),
                 SizedBox(

@@ -10,21 +10,26 @@ import 'package:meshr_app/screens/view-gallery-3d.dart';
 import 'package:meshr_app/screens/view-gallery-img.dart';
 import 'package:meshr_app/widgets/custom-bottom-navigation-bar.dart';
 
+// SCREEN FOR BOTTOM NAVIGATION FOR SETTINGS AND GALLERY (PAGE VIEW)
 class BottomNavigation extends StatefulWidget {
   bool isGallery;
   bool isClicked;
   bool isImg;
-  BottomNavigation({Key? key, required this.isGallery, required this.isClicked, required this.isImg,}) : super(key: key);
+  BottomNavigation({
+    Key? key,
+    required this.isGallery,
+    required this.isClicked,
+    required this.isImg,
+  }) : super(key: key);
 
   @override
   State<BottomNavigation> createState() => _BottomNavigationState();
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  
   int _currentIndex = 0;
   bool isGalleryView = false;
-
+// ACCESS BOX COLLECTION
   final _myBox = Hive.box('FilesCollection');
   FilesLocalStorage fls = FilesLocalStorage();
   late int imgLength;
@@ -33,28 +38,28 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   void initState() {
     // TODO: implement initState
-    List imgList = _myBox.get('IMGLIST');
-    List objList = _myBox.get('OBJLIST');
-    imgLength = imgList.length;
-    objLength = objList.length;
+
+    fls.loadData();
+
+    imgLength = fls.imageFileNames!.length;
+    objLength = fls.objFileNames!.length;
     super.initState();
   }
-  
-  
 
   @override
   Widget build(BuildContext context) {
-    if(widget.isGallery) {
-      _currentIndex ++;
+    if (widget.isGallery) {
+      _currentIndex++;
       widget.isGallery = false;
     }
 
-    if(widget.isClicked){
+    if (widget.isClicked) {
       isGalleryView = true;
     }
 
     PageController _pageController = PageController(initialPage: _currentIndex);
     return Scaffold(
+      // PAGE VIEW FOR SLIDABLE VIEW BETWEEN GALLERY AND SETTINGS
       body: PageView(
         physics: AlwaysScrollableScrollPhysics(),
         controller: _pageController,
@@ -63,17 +68,29 @@ class _BottomNavigationState extends State<BottomNavigation> {
             _currentIndex = index;
           });
         },
-        children: widget.isClicked ? [
-          Settings(isClicked: widget.isClicked,),
-          widget.isImg ? ViewGalleryImg(): ViewGallery3D(),
-        ] : [
-          
-          Settings(isClicked: widget.isClicked,),
-          GalleryMain(imgLength: imgLength, objLength: objLength,),
-        ],
+        children: widget.isClicked
+            ? [
+                Settings(
+                  isClicked: widget.isClicked,
+                ),
+                widget.isImg ? ViewGalleryImg() : ViewGallery3D(),
+              ]
+            : [
+                Settings(
+                  isClicked: widget.isClicked,
+                ),
+                GalleryMain(
+                  imgLength: imgLength,
+                  objLength: objLength,
+                ),
+              ],
       ),
       //Custom bottom navigation bar
-      bottomNavigationBar: CustomNavBar(controller: _pageController, currentIndex: _currentIndex, isGalleryView: isGalleryView,),
+      bottomNavigationBar: CustomNavBar(
+        controller: _pageController,
+        currentIndex: _currentIndex,
+        isGalleryView: isGalleryView,
+      ),
     );
   }
 }
