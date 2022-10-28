@@ -13,6 +13,7 @@ import 'package:meshr_app/screens/login_screen.dart';
 import 'package:meshr_app/screens/main_menu.dart';
 import 'package:meshr_app/screens/notification_screen.dart';
 import 'package:meshr_app/screens/settings.dart';
+import 'package:meshr_app/screens/splash-screen.dart';
 import 'package:meshr_app/screens/step-one-img.dart';
 import 'package:meshr_app/screens/step-one-txt.dart';
 import 'package:meshr_app/screens/step-two-txt.dart';
@@ -44,7 +45,7 @@ Future<void> main() async{
       theme: ThemeData(
         fontFamily: "Roboto",
       ),
-      home: HomePage(),
+      home: SplashScreen(),
     ),
   ));
 }
