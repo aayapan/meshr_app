@@ -59,13 +59,6 @@ class _GenerateStepOne3DState extends State<GenerateStepOne3D> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    print("CLEAR FILE LIST");
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
