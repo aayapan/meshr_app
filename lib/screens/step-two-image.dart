@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers
 
+import 'dart:io';
+
 import "package:flutter/material.dart";
 import 'package:meshr_app/screens/bottom_navigation.dart';
 import 'package:meshr_app/screens/image-help.dart';
@@ -11,7 +13,8 @@ import 'package:meshr_app/widgets/generate-header.dart';
 import 'package:meshr_app/widgets/proceed-button.dart';
 
 class GenerateStepTwoImage extends StatefulWidget {
-  GenerateStepTwoImage({Key? key,}) : super(key: key);
+  List<File> files;
+  GenerateStepTwoImage({Key? key, required this.files}) : super(key: key);
 
   @override
   State<GenerateStepTwoImage> createState() => _GenerateStepTwoImageState();
@@ -21,6 +24,12 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
   String _enteredText = '';
   late int charCounter;
   bool _clickable = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(widget.files);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +69,7 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
                         _enteredText = value;
                         charCounter = 0;
                         for (int i = 0; i < _enteredText.length; i++) {
-                          if(_enteredText[i] != " "){
+                          if (_enteredText[i] != " ") {
                             charCounter++;
                           }
                         }
@@ -92,7 +101,7 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
                     clickable: _clickable,
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ViewOutputImage()));
+                          builder: (context) => ViewOutputImage()));
                     },
                   )
                 ],
@@ -101,11 +110,17 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
           ],
         ),
       ),
-      bottomNavigationBar: GenerateBottomNav(helpFunction: (){
-        Navigator.push(context, MaterialPageRoute(builder: ((context) {
-          return HelpScreen(header: "Define!", footer: "Find the right words that would define your target design, the more specific your definition is the more specific the output will be.",);
-        })));
-      },),
+      bottomNavigationBar: GenerateBottomNav(
+        helpFunction: () {
+          Navigator.push(context, MaterialPageRoute(builder: ((context) {
+            return HelpScreen(
+              header: "Define!",
+              footer:
+                  "Find the right words that would define your target design, the more specific your definition is the more specific the output will be.",
+            );
+          })));
+        },
+      ),
     );
   }
 }

@@ -22,6 +22,9 @@ class DrawingPage extends StatefulWidget {
 }
 
 class _DrawingPageState extends State<DrawingPage> {
+  // List of Files to pass to the server
+  List<File> filesToPass = [];
+  
   final GlobalKey _globalKey = GlobalKey();
   List<DrawnLine> lines = <DrawnLine>[];
   late DrawnLine? line;
@@ -46,6 +49,7 @@ class _DrawingPageState extends State<DrawingPage> {
       File file =
           File('${directory?.path}/${DateTime.now().toIso8601String()}.png');
       file = await file.writeAsBytes(pngBytes, flush: true);
+      filesToPass.add(file);
 
       // var saved = await ImageGallerySaver.saveImage(
       //   pngBytes,
@@ -104,7 +108,7 @@ class _DrawingPageState extends State<DrawingPage> {
         onPressed: (){
           save().then((value) {
             Navigator.of(context).push(MaterialPageRoute(builder: (context){
-              return GenerateStepTwoImage();
+              return GenerateStepTwoImage(files: filesToPass);
             }));
           });
         },

@@ -74,11 +74,12 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
   void initState() {
     // TODO: implement initState
     passImages = widget.displayImages;
-    print(widget.displayImages);
 
     if (passImages.length >= 3) {
       _clickable = true;
     }
+
+    print('FILES: $passImages');
 
     super.initState();
   }

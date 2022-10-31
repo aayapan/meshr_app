@@ -29,8 +29,11 @@ class GenerateStepOneImage extends StatefulWidget {
 }
 
 class _GenerateStepOneImageState extends State<GenerateStepOneImage> {
+  // List of Files to pass to the server
+  List<File> filesToPass = [];
   File? _image;
 
+  // Image2Image function that'll get an image from device's gallery
   Future uploadImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -45,7 +48,8 @@ class _GenerateStepOneImageState extends State<GenerateStepOneImage> {
       print(e);
     }
   }
-
+  
+  // Image2Image funtcion that'll capture an image from device's camera
   Future captureImage() async {
     try {
       final image = await ImagePicker().pickImage(
@@ -68,6 +72,13 @@ class _GenerateStepOneImageState extends State<GenerateStepOneImage> {
     final name = basename(imagePath);
     final image = File('${directory?.path}/$name.jpeg');
     return File(imagePath).copy(image.path);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("CLEAR LIST FILES");
   }
 
   @override
@@ -117,11 +128,12 @@ class _GenerateStepOneImageState extends State<GenerateStepOneImage> {
                         if (_image == null) {
                           setState(() {});
                         } else {
+                          filesToPass.add(_image!);
                           print("CHANGE NAVIGATION");
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      GenerateStepTwoImage()));
+                                      GenerateStepTwoImage(files: filesToPass,)));
                         }
                       });
                     }),
@@ -132,11 +144,12 @@ class _GenerateStepOneImageState extends State<GenerateStepOneImage> {
                         if (_image == null) {
                           setState(() {});
                         } else {
+                          filesToPass.add(_image!);
                           print("CHANGE NAVIGATION");
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      GenerateStepTwoImage()));
+                                      GenerateStepTwoImage(files: filesToPass,)));
                         }
                       });
                     }),
