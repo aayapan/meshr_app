@@ -2,7 +2,11 @@
 
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'package:meshr_app/linker/request_id_generator.dart';
+import 'package:meshr_app/linker/send_to_server.dart';
+import 'package:meshr_app/linker/set_filename.dart';
 import 'package:meshr_app/screens/bottom_navigation.dart';
 import 'package:meshr_app/screens/image-help.dart';
 import 'package:meshr_app/screens/step-two-txt.dart';
@@ -24,6 +28,13 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
   String _enteredText = '';
   late int charCounter;
   bool _clickable = false;
+
+  FileHandler fh = FileHandler();
+  RequestHandler rh = RequestHandler();
+  late List<String> _filename;
+
+  final user = FirebaseAuth.instance.currentUser!.displayName;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -99,9 +110,15 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
                   ),
                   ProceedButton(
                     clickable: _clickable,
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ViewOutputImage()));
+                    onPressed: () async {
+
+                      String rqid = RequestID.create(user!);
+                      _filename = FileNameConvert.convert(widget.files, rqid);                  
+                      await fh.upload(rqid, widget.files);
+                      rh.im2im_request(rqid, _enteredText, fh, _filename);
+
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (context) => ViewOutputImage()));
                     },
                   )
                 ],

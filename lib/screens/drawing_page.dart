@@ -11,7 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:meshr_app/screens/drawn_line.dart';
 import 'package:meshr_app/screens/sketcher.dart';
-import 'package:meshr_app/screens/step-two-image.dart';
+import 'package:meshr_app/screens/step-two-img.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DrawingPage extends StatefulWidget {

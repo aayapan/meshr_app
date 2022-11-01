@@ -7,6 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meshr_app/data/local-storage.dart';
+import 'package:meshr_app/linker/request_id_generator.dart';
+import 'package:meshr_app/linker/send_to_server.dart';
+import 'package:meshr_app/linker/set_filename.dart';
 import 'package:meshr_app/screens/main_menu.dart';
 import 'package:meshr_app/screens/step-two-3d.dart';
 import 'package:meshr_app/screens/step-two-txt.dart';
@@ -19,7 +22,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
 class GenerateStepThree3D extends StatefulWidget {
-  List displayImages;
+  List<File> displayImages;
   GenerateStepThree3D({
     Key? key,
     required this.displayImages,
@@ -35,7 +38,11 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
   final _myBox = Hive.box('FilesCollection');
   FilesLocalStorage fls = FilesLocalStorage();
 
-  List passImages = [];
+  List<File> passImages = [];
+
+  FileHandler fh = FileHandler();
+  RequestHandler rh = RequestHandler();
+  late List<String> _filename;
 
   bool _clickable = false;
 
@@ -59,7 +66,7 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
     final directory = await getExternalStorageDirectory();
 
     final name = basename(imagePath);
-    final image = File('${directory?.path}/$name.jpeg');
+    final image = File('${directory?.path}/$name');
     return File(imagePath).copy(image.path);
   }
 
@@ -124,7 +131,7 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                               setState(() {});
                             } else {
                               setState(() {
-                                passImages[0] = _image;
+                                passImages[0] = _image!;
                               });
                               print("Change Navigation");
                               Navigator.of(context).pushReplacement(
@@ -151,7 +158,7 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                               setState(() {});
                             } else {
                               setState(() {
-                                passImages[1] = _image;
+                                passImages[1] = _image!;
                               });
                               print("Change Navigation");
                               Navigator.of(context).pushReplacement(
@@ -180,7 +187,7 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                               if (_image == null) {
                                 setState(() {});
                               } else {
-                                passImages.add(_image);
+                                passImages.add(_image!);
                                 Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                         builder: (context) =>
@@ -194,7 +201,7 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                                 setState(() {});
                               } else {
                                 setState(() {
-                                  passImages[2] = _image;
+                                  passImages[2] = _image!;
                                 });
                                 print("Change Navigation");
                                 Navigator.of(context).pushReplacement(
@@ -247,7 +254,7 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                               if (_image == null) {
                                 setState(() {});
                               } else {
-                                passImages.add(_image);
+                                passImages.add(_image!);
                                 Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                         builder: (context) =>
@@ -261,7 +268,7 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                                 setState(() {});
                               } else {
                                 setState(() {
-                                  passImages[3] = _image;
+                                  passImages[3] = _image!;
                                 });
                                 print("Change Navigation");
                                 Navigator.of(context).pushReplacement(
@@ -312,7 +319,7 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                               if (_image == null) {
                                 setState(() {});
                               } else {
-                                passImages.add(_image);
+                                passImages.add(_image!);
                                 Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                         builder: (context) =>
@@ -326,7 +333,7 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                                 setState(() {});
                               } else {
                                 setState(() {
-                                  passImages[4] = _image;
+                                  passImages[4] = _image!;
                                 });
                                 print("Change Navigation");
                                 Navigator.of(context).pushReplacement(
@@ -374,7 +381,7 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                               if (_image == null) {
                                 setState(() {});
                               } else {
-                                passImages.add(_image);
+                                passImages.add(_image!);
                                 Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                         builder: (context) =>
@@ -388,7 +395,7 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                                 setState(() {});
                               } else {
                                 setState(() {
-                                  passImages[5] = _image;
+                                  passImages[5] = _image!;
                                 });
                                 print("Change Navigation");
                                 Navigator.of(context).pushReplacement(
@@ -440,9 +447,13 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                   margin: EdgeInsets.only(right: 15),
                   child: ProceedButton(
                       clickable: _clickable,
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ViewOutput3D()));
+                      onPressed: () async {
+                        String rqid = RequestID.create("user");
+                        _filename = FileNameConvert.convert(passImages, rqid);
+                        await fh.upload(rqid, passImages);
+                        rh.im2ms_request(rqid, fh, _filename);
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //     builder: (context) => ViewOutput3D()));
                       }))
             ],
           ),

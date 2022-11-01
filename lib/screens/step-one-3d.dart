@@ -54,7 +54,7 @@ class _GenerateStepOne3DState extends State<GenerateStepOne3D> {
 
     final name = basename(imagePath);
     final image =
-        File('${directory?.path}/$name.jpeg');
+        File('${directory?.path}/$name');
     return File(imagePath).copy(image.path);
   }
 

@@ -33,7 +33,7 @@ class _GenerateStepTwo3DState extends State<GenerateStepTwo3D> {
   final _myBox = Hive.box('FilesCollection');
   FilesLocalStorage fls = FilesLocalStorage();
 
-  List passImages = [];
+  List<File> passImages = [];
 
   Future captureImage() async {
     try {
@@ -57,7 +57,7 @@ class _GenerateStepTwo3DState extends State<GenerateStepTwo3D> {
 
     final name = basename(imagePath);
     final image =
-        File('${directory?.path}/$name.jpeg');
+        File('${directory?.path}/$name');
     return File(imagePath).copy(image.path);
   }
 

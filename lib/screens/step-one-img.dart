@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:meshr_app/screens/drawing_page.dart';
 import 'package:meshr_app/screens/image-help.dart';
 import 'package:meshr_app/screens/main_menu.dart';
-import 'package:meshr_app/screens/step-two-image.dart';
+import 'package:meshr_app/screens/step-two-img.dart';
 import 'package:meshr_app/screens/step-two-txt.dart';
 import 'package:meshr_app/screens/step-two.dart';
 import 'package:meshr_app/screens/view-output-img.dart';
@@ -70,7 +70,7 @@ class _GenerateStepOneImageState extends State<GenerateStepOneImage> {
     final directory = await getExternalStorageDirectory();
 
     final name = basename(imagePath);
-    final image = File('${directory?.path}/$name.jpeg');
+    final image = File('${directory?.path}/$name');
     return File(imagePath).copy(image.path);
   }
 
