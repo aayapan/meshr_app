@@ -30,9 +30,14 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
     // getData();
   }
 
-  // Future getData() async {
-  //   myList = await something
-  // }
+  Future<List<String>> textToImage() async {
+    List<String> response = [];
+    await Future.delayed(Duration(seconds: 10)).then((value) {
+      print('PASOK KA SA FUTURE');
+      response = ['test', 'test2'];
+    });
+    return response;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,17 +63,45 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
                 header: "Step 2:", subheader: "Choose your desired output"),
             Expanded(
                 child: Container(
-              child: GridView.count(
-                crossAxisCount: 2,
-                children: List.generate(listLength, (index) {
-                  return OutputItem(onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: ((context) {
-                      return ViewOutputImage();
-                    })));
-                  });
-                }),
+              child: FutureBuilder<List<String>>(
+                future: textToImage(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error: ${snapshot.error}'),
+                      );
+                    } else {
+                      return GridView.count(
+                        crossAxisCount: 2,
+                        children: List.generate(snapshot.data!.length, (index) {
+                          return OutputItem(onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: ((context) {
+                              return ViewOutputImage();
+                            })));
+                          });
+                        }),
+                      );
+                    }
+                  }
+                },
               ),
+              // child: GridView.count(
+              //   crossAxisCount: 2,
+              //   children: List.generate(listLength, (index) {
+              //     return OutputItem(onPressed: () {
+              //       Navigator.push(context,
+              //           MaterialPageRoute(builder: ((context) {
+              //         return ViewOutputImage();
+              //       })));
+              //     });
+              //   }),
+              // ),
             )),
           ],
         ),
