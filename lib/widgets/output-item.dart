@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:meshr_app/screens/view-output-img.dart';
 
 class OutputItem extends StatefulWidget {
+  VoidCallback onPressed;
   OutputItem({
-    Key? key,
+    Key? key, required this.onPressed
   }) : super(key: key);
 
   @override
@@ -27,10 +28,7 @@ class _OutputItemState extends State<OutputItem> {
               onPrimary: Color(0xFFEFB83C),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(11.0))),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ViewOutputImage()));
-          },
+          onPressed: widget.onPressed,
           child: Center(
             child: Text(
               "Image",

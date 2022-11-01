@@ -2,21 +2,24 @@
 
 import "package:flutter/material.dart";
 import 'package:meshr_app/screens/image-help.dart';
+import 'package:meshr_app/screens/view-gallery-img.dart';
+import 'package:meshr_app/screens/view-output-img.dart';
 import 'package:meshr_app/widgets/generate-footer.dart';
 import 'package:meshr_app/widgets/generate-header.dart';
 import 'package:meshr_app/widgets/output-item.dart';
 
 class GenerateStepTwoText extends StatefulWidget {
-  GenerateStepTwoText({Key? key,}) : super(key: key); 
+  GenerateStepTwoText({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<GenerateStepTwoText> createState() => _GenerateStepTwoTextState();
 }
 
 class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
-
-  int listLength = 3;
-  List<String> myList = [];
+  int listLength = 4;
+  late List<String> myList;
   // late SharedPreferences prefs;
 
   @override
@@ -28,9 +31,7 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
   }
 
   // Future getData() async {
-  //   prefs = await SharedPreferences.getInstance();
-  //   myList = prefs.getStringList('thumb-list')!;
-  //   print(myList);
+  //   myList = await something
   // }
 
   @override
@@ -60,20 +61,29 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
               child: GridView.count(
                 crossAxisCount: 2,
                 children: List.generate(listLength, (index) {
-                  return OutputItem();
+                  return OutputItem(onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: ((context) {
+                      return ViewOutputImage();
+                    })));
+                  });
                 }),
               ),
             )),
           ],
         ),
       ),
-      bottomNavigationBar: GenerateBottomNav(helpFunction: (){
-        Navigator.push(context, MaterialPageRoute(builder: ((context) {
-          return HelpScreen(header: "Choose!", footer: "After reviewing the input, and you agreed with how the system understood your description, then it's time to choose. \n\n Choose from a set of generated 2D images that are based from your description. Tapping a design will generate a 3D version of that picture.",);
-        })));
-      },),
+      bottomNavigationBar: GenerateBottomNav(
+        helpFunction: () {
+          Navigator.push(context, MaterialPageRoute(builder: ((context) {
+            return HelpScreen(
+              header: "Choose!",
+              footer:
+                  "After reviewing the input, and you agreed with how the system understood your description, then it's time to choose. \n\n Choose from a set of generated 2D images that are based from your description. Tapping a design will generate a 3D version of that picture.",
+            );
+          })));
+        },
+      ),
     );
   }
 }
-
-

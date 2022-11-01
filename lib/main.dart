@@ -12,6 +12,7 @@ import 'package:meshr_app/screens/home_page.dart';
 import 'package:meshr_app/screens/login_screen.dart';
 import 'package:meshr_app/screens/main_menu.dart';
 import 'package:meshr_app/screens/notification_screen.dart';
+import 'package:meshr_app/screens/pageview.dart';
 import 'package:meshr_app/screens/settings.dart';
 import 'package:meshr_app/screens/splash-screen.dart';
 import 'package:meshr_app/screens/step-one-img.dart';
