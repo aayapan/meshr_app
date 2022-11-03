@@ -109,9 +109,9 @@ class _Gallery3DState extends State<Gallery3D> {
                     child: grid
                         ? GridView.count(
                             crossAxisCount: 2,
-                            children: List.generate(fls.objFileNames!.length + 1,
+                            children: List.generate(fls.objFileNames.length + 1,
                                 (index) {
-                              return index == fls.objFileNames!.length
+                              return index == fls.objFileNames.length
                                   ? GridAddButton(
                                       onPressed: () {
                                         Navigator.of(context).push(
@@ -121,16 +121,16 @@ class _Gallery3DState extends State<Gallery3D> {
                                       },
                                     )
                                   : GridItem(
-                                      obj: fls.objFileNames![index],
-                                      thumb: fls.thumbFileNames![index],
+                                      obj: fls.objFileNames[index],
+                                      thumb: fls.thumbFileNames[index],
                                     );
                             }),
                           )
                         : ListView(
-                            children: List.generate(fls.objFileNames!.length + 1,
+                            children: List.generate(fls.objFileNames.length + 1,
                                 (index) {
                               return index ==
-                                      fls.objFileNames!
+                                      fls.objFileNames
                                           .length // Paths and Filenames should always have the same length
                                   ? ListAddButton(
                                       onPressed: () {
@@ -141,8 +141,8 @@ class _Gallery3DState extends State<Gallery3D> {
                                       },
                                     )
                                   : ListItem(
-                                      obj: fls.objFileNames![index],
-                                      thumb: fls.thumbFileNames![index],
+                                      obj: fls.objFileNames[index],
+                                      thumb: fls.thumbFileNames[index],
                                     );
                             }),
                           )),

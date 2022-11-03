@@ -1,9 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
 import "package:flutter/material.dart";
+import 'package:meshr_app/screens/step-one-img.dart';
+import 'package:meshr_app/screens/step-one-txt.dart';
 
 class ViewGalleryImg extends StatelessWidget {
-  const ViewGalleryImg({Key? key}) : super(key: key);
+  String img;
+  ViewGalleryImg({Key? key, required this.img}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +59,7 @@ class ViewGalleryImg extends StatelessWidget {
                   color: Colors.red,
                   width: double.infinity,
                   height: MediaQuery.of(context).size.width,
+                  child: Image.file(File(img), fit: BoxFit.cover,),
                 ),
                 Container(
                     decoration: BoxDecoration(
@@ -64,7 +70,66 @@ class ViewGalleryImg extends StatelessWidget {
                           primary: Color(0xFFEFB83C),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(11.0))),
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return Container(
+                                          color: Color(0xFFEFB83C),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              ListTile(
+                                                leading: Icon(
+                                                    Icons.text_format,
+                                                    size: 40,
+                                                    color: Color(0xFF2D2B2B)),
+                                                title: Text(
+                                                  'Text-to-Image',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 25,
+                                                    fontWeight: FontWeight.w300,
+                                                    color: Color(0xFF2D2B2B),
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              GenerateStepOneText()));
+                                                },
+                                              ),
+                                              ListTile(
+                                                leading: Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 7),
+                                                    child: Icon(
+                                                      Icons.image_search,
+                                                      size: 30,
+                                                      color: Color(0xFF2D2B2B),
+                                                    )),
+                                                title: Text(
+                                                  'Image-to-Image',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 25,
+                                                    fontWeight: FontWeight.w300,
+                                                    color: Color(0xFF2D2B2B),
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              GenerateStepOneImage()));
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      });
+                      },
                       child: Container(
                         height: 33,
                         width: 60,

@@ -67,10 +67,10 @@ class _GenerateStepOneImageState extends State<GenerateStepOneImage> {
   }
 
   Future<File> saveImagePermanently(String imagePath) async {
-    final directory = await getExternalStorageDirectory();
+    final directory = await getApplicationDocumentsDirectory();
 
     final name = basename(imagePath);
-    final image = File('${directory?.path}/$name');
+    final image = File('${directory.path}/$name');
     return File(imagePath).copy(image.path);
   }
 

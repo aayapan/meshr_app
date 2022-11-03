@@ -39,7 +39,7 @@ class _GalleryImageState extends State<GalleryImage> {
   @override
   void initState() {
     // if this is the 1st time ever opening the app, create default data
-    if (_myBox.get('OBJLIST') == null && _myBox.get('THUMBLIST') == null) {
+    if (_myBox.get('IMGLIST') == null) {
       print("INIT"); // Debug purposes
       fls.createInitialData();
     } else {
@@ -104,9 +104,9 @@ class _GalleryImageState extends State<GalleryImage> {
                     color: Color(0xFF2D2B2B),
                     child: GridView.count(
                       crossAxisCount: 2,
-                      children: List.generate(fls.imageFileNames!.length + 1,
+                      children: List.generate(fls.imageFileNames.length + 1,
                           (index) {
-                        return index == fls.imageFileNames!.length
+                        return index == fls.imageFileNames.length
                             ? GridAddButton(
                                 onPressed: () {
                                   showModalBottomSheet(
@@ -170,7 +170,7 @@ class _GalleryImageState extends State<GalleryImage> {
                                 },
                               )
                             : GridItemImage(
-                                img: fls.imageFileNames![index],
+                                img: fls.imageFileNames[index],
                               );
                       }),
                     )),

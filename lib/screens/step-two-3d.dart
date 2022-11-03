@@ -53,11 +53,11 @@ class _GenerateStepTwo3DState extends State<GenerateStepTwo3D> {
 
   Future<File> saveImagePermanently(
       String imagePath) async {
-    final directory = await getExternalStorageDirectory();
+    final directory = await getApplicationDocumentsDirectory();
 
     final name = basename(imagePath);
     final image =
-        File('${directory?.path}/$name');
+        File('${directory.path}/$name');
     return File(imagePath).copy(image.path);
   }
 

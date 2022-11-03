@@ -38,6 +38,11 @@ class _GenerateStepOne3DState extends State<GenerateStepOne3D> {
       final image = await ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.rear);
       if (image == null) return;
       final img = await saveImagePermanently(image.path);
+      // final img2 = await saveImagePermanently2(image.path);
+      // fls.loadData();
+      // fls.imageFileNames.add(img2.path);
+      // fls.updateData();
+
       print("IMAGE PATH: ${img.path}");
 
       setState(() {
@@ -49,6 +54,17 @@ class _GenerateStepOne3DState extends State<GenerateStepOne3D> {
   }
 
   Future<File> saveImagePermanently(
+      String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    final name = basename(imagePath);
+    final image =
+        File('${directory.path}/$name');
+    return File(imagePath).copy(image.path);
+  }
+
+  // DEBUG PURPOSES ONLY
+  Future<File> saveImagePermanently2(
       String imagePath) async {
     final directory = await getExternalStorageDirectory();
 

@@ -22,6 +22,7 @@ import 'package:meshr_app/screens/step-two.dart';
 import 'package:meshr_app/screens/test.dart';
 import 'package:meshr_app/screens/view-gallery-3d.dart';
 import 'package:meshr_app/screens/view-output-img.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 
@@ -33,7 +34,9 @@ Future<void> main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
   // init hive
+  final dir = await getExternalStorageDirectory();
   await Hive.initFlutter();
+  Hive.init(dir?.path);
 
   // open hive box
   var box = await Hive.openBox('FilesCollection');

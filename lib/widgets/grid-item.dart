@@ -31,6 +31,7 @@ class _GridItemState extends State<GridItem> {
                           isGallery: true,
                           isClicked: true,
                           isImg: false,
+                          img: "",
                         )));
           },
           child: Column(

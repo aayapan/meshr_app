@@ -31,6 +31,7 @@ class _ListItemState extends State<ListItem> {
                           isGallery: true,
                           isClicked: true,
                           isImg: false,
+                          img: "",
                         )));
           },
           child: Container(

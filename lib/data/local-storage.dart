@@ -4,16 +4,16 @@ import 'package:hive_flutter/hive_flutter.dart';
 // HIVE CLASS (LOCAL STORAGE uses BOXES)
 class FilesLocalStorage {
 
-  List? objFileNames;
-  List? thumbFileNames;
-  List? imageFileNames;
+  List objFileNames = [];
+  List thumbFileNames = [];
+  List imageFileNames = [];
 
   final _myBox = Hive.box('FilesCollection');
 // INITIALIZING LIST
   void createInitialData() {
-    objFileNames = ['obj1', 'obj2'];
-    thumbFileNames = ['thumb1', 'thumb2'];
-    imageFileNames = ['img1', 'img2'];
+    objFileNames = [];
+    thumbFileNames = [];
+    imageFileNames = [];
     updateData();
   }
 // LOAD THE DATA

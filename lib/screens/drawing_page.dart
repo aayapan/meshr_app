@@ -44,10 +44,10 @@ class _DrawingPageState extends State<DrawingPage> {
       ByteData? byteData =
           await image.toByteData(format: ui.ImageByteFormat.png);
       Uint8List pngBytes = byteData!.buffer.asUint8List();
-      final directory = await getExternalStorageDirectory();
+      final directory = await getApplicationDocumentsDirectory();
       // final name = basename(imagePath);
       File file =
-          File('${directory?.path}/${DateTime.now().toIso8601String()}.png');
+          File('${directory.path}/${DateTime.now().toIso8601String()}.png');
       file = await file.writeAsBytes(pngBytes, flush: true);
       filesToPass.add(file);
 

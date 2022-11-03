@@ -38,9 +38,15 @@ class _MainMenuState extends State<MainMenu> {
     // TODO: implement initState
     initClearAppDirectory();
     googleDisplayName = user.displayName!.split(" ")[0];
-    if (_myBox.get('OBJLIST') == null && _myBox.get('THUMBLIST') == null) {
+    if (_myBox.get('OBJLIST') == null && _myBox.get('THUMBLIST') == null && _myBox.get('IMGLIST') == null) {
       print("INIT"); // Debug purposes
+      print(_myBox.get('OBJLIST'));
+      print(_myBox.get('IMGLIST'));
+      print(_myBox.get('THUMBLIST'));
       fls.createInitialData();
+      print(_myBox.get('OBJLIST'));
+      print(_myBox.get('IMGLIST'));
+      print(_myBox.get('THUMBLIST'));
     } else {
       print("LOAD"); // Debug purposes
       fls.loadData();
@@ -50,8 +56,8 @@ class _MainMenuState extends State<MainMenu> {
 
   void initClearAppDirectory() async {
     print("CLEAR DIRECTORY");
-    final directory = await getExternalStorageDirectory();
-    deleteFilesExceptExtension('txt', '${directory!.path}/');
+    final directory = await getApplicationDocumentsDirectory();
+    deleteFilesExceptExtension('txt', '${directory.path}/');
   }
 
   void deleteFilesExceptExtension(String suffix, String path) {
@@ -135,6 +141,7 @@ class _MainMenuState extends State<MainMenu> {
                               isGallery: true,
                               isClicked: false,
                               isImg: false,
+                              img: "",
                             )));
                   },
                 ),
@@ -257,6 +264,7 @@ class _MainMenuState extends State<MainMenu> {
                           isGallery: false,
                           isClicked: false,
                           isImg: false,
+                          img: "",
                         )));
               },
               icon: ImageIcon(AssetImage("assets/images/settings-icon.png")),

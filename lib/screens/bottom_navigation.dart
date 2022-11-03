@@ -15,11 +15,13 @@ class BottomNavigation extends StatefulWidget {
   bool isGallery;
   bool isClicked;
   bool isImg;
+  String img;
   BottomNavigation({
     Key? key,
     required this.isGallery,
     required this.isClicked,
     required this.isImg,
+    required this.img
   }) : super(key: key);
 
   @override
@@ -41,8 +43,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
     fls.loadData();
 
-    imgLength = fls.imageFileNames!.length;
-    objLength = fls.objFileNames!.length;
+    imgLength = fls.imageFileNames.length;
+    objLength = fls.objFileNames.length;
     super.initState();
   }
 
@@ -73,7 +75,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 Settings(
                   isClicked: widget.isClicked,
                 ),
-                widget.isImg ? ViewGalleryImg() : ViewGallery3D(),
+                widget.isImg ? ViewGalleryImg(img: widget.img) : ViewGallery3D(),
               ]
             : [
                 Settings(
