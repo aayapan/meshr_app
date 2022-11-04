@@ -9,7 +9,7 @@ class UrlMaker {
   Uri downloadUrl = Uri();
   String fileName = '';
 
-  Uri url = Uri.parse('http://54.65.241.79/generatePresignedUrl');
+  Uri url = Uri.parse('http://18.183.40.87/generatePresignedUrl');
 
   Future<Uri> createURL(String fileType) async{
 
@@ -20,18 +20,20 @@ class UrlMaker {
       var response = await http.post(url, body:body);
       print("Hello");
       var result = jsonDecode(response.body);
-
+      print(result);
 
       if(result["success"] != null){
         success = result["success"];
         message = result['message'];
-
+        print("Hello2");
         if (response.statusCode == 201) {
           isGenerated = true;
+          print("Hello3");
           uploadUrl = Uri.parse(result["uploadUrl"]);
           var string = uploadUrl.toString().split('/');
           fileName = string[3].substring(0, 40);
           downloadUrl = Uri.parse(result["downloadUrl"]);
+          print("Hello4");
           return uploadUrl;
         } else {
           throw "URL not generated";

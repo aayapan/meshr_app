@@ -33,7 +33,7 @@ import 'package:path/path.dart' as path;
 import 'S3_url_maker.dart';
 
 
-Uri PYTHON_SERVER = Uri.parse("http://18.183.246.22:8080/req");
+Uri PYTHON_SERVER = Uri.parse("http://43.206.150.140:8080/req");
 
 
 
@@ -79,16 +79,16 @@ class RequestHandler{
 
   bool requestSuccess = true;
 
-  void tx2im_request(String rqid, String prompt){
-    request ({"RequestID" : rqid, "Prompt" : prompt, "RequestType" : "TX2IM"});
+  Future<void> tx2im_request(String rqid, String prompt){
+    return request ({"RequestID" : rqid, "Prompt" : prompt, "RequestType" : "TX2IM"});
   }
 
-  void im2im_request(String rqid, String prompt, FileHandler fh, List<String> fn){
-    request ({"RequestID" : rqid, "Prompt" : prompt, "RequestType" : "IM2IM", "DownloadUrl" : fh.fileName.toString(), "FileName" : fn.toString()});
+  Future<void> im2im_request(String rqid, String prompt, FileHandler fh, List<String> fn){
+    return request ({"RequestID" : rqid, "Prompt" : prompt, "RequestType" : "IM2IM", "DownloadUrl" : fh.fileName.toString(), "FileName" : fn.toString()});
   }
   
-  void im2ms_request(String rqid, FileHandler fh, List<String> fn){
-    request ({"RequestID" : rqid, "RequestType" : "IM2MS", "DownloadUrl" : fh.fileName.toString(), "FileName" : fn.toString()});
+  Future<void> im2ms_request(String rqid, FileHandler fh, List<String> fn){
+    return request ({"RequestID" : rqid, "RequestType" : "IM2MS", "DownloadUrl" : fh.fileName.toString(), "FileName" : fn.toString()});
   }
   
 
@@ -101,7 +101,8 @@ class RequestHandler{
          throw "Request Not Processed";
       }
 
-      print(response.body);
+      var downloadLinks = await jsonDecode(response.body);
+      print(downloadLinks);
     } catch (e) {
       throw (e);
     }
