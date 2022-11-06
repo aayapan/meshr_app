@@ -16,13 +16,13 @@ class BottomNavigation extends StatefulWidget {
   bool isClicked;
   bool isImg;
   String img;
-  BottomNavigation({
-    Key? key,
-    required this.isGallery,
-    required this.isClicked,
-    required this.isImg,
-    required this.img
-  }) : super(key: key);
+  BottomNavigation(
+      {Key? key,
+      required this.isGallery,
+      required this.isClicked,
+      required this.isImg,
+      required this.img})
+      : super(key: key);
 
   @override
   State<BottomNavigation> createState() => _BottomNavigationState();
@@ -72,15 +72,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
         },
         children: widget.isClicked
             ? [
-                Settings(
-                  isClicked: widget.isClicked,
-                ),
-                widget.isImg ? ViewGalleryImg(img: widget.img) : ViewGallery3D(),
+                Settings(),
+                widget.isImg
+                    ? ViewGalleryImg(img: widget.img)
+                    : ViewGallery3D(),
               ]
             : [
-                Settings(
-                  isClicked: widget.isClicked,
-                ),
+                Settings(),
                 GalleryMain(
                   imgLength: imgLength,
                   objLength: objLength,

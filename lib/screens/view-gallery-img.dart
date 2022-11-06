@@ -14,7 +14,7 @@ class ViewGalleryImg extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF2D2B2B),
         title: Text(
           "TITLE",
           style: TextStyle(
@@ -47,108 +47,111 @@ class ViewGalleryImg extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Container(color: Color(0xFFEFB83C), height: 2, width: double.infinity,),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  color: Colors.red,
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.width,
-                  child: Image.file(File(img), fit: BoxFit.cover,),
-                ),
-                Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(11))),
-                    margin: EdgeInsets.only(left: 15, right: 15),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Color(0xFFEFB83C),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(11.0))),
-                      onPressed: () {
-                        showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) {
-                                        return Container(
-                                          color: Color(0xFFEFB83C),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              ListTile(
-                                                leading: Icon(
-                                                    Icons.text_format,
-                                                    size: 40,
-                                                    color: Color(0xFF2D2B2B)),
-                                                title: Text(
-                                                  'Text-to-Image',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: 25,
-                                                    fontWeight: FontWeight.w300,
-                                                    color: Color(0xFF2D2B2B),
-                                                  ),
-                                                ),
-                                                onTap: () {
-                                                  Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              GenerateStepOneText()));
-                                                },
-                                              ),
-                                              ListTile(
-                                                leading: Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 7),
-                                                    child: Icon(
-                                                      Icons.image_search,
-                                                      size: 30,
+      body: Container(
+        color: Color(0xFF2D2B2B),
+        child: Column(
+          children: [
+            Container(color: Color(0xFFEFB83C), height: 2, width: double.infinity,),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    color: Colors.red,
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.width,
+                    child: Image.file(File(img), fit: BoxFit.cover,),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(11))),
+                      margin: EdgeInsets.only(left: 15, right: 15),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Color(0xFFEFB83C),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(11.0))),
+                        onPressed: () {
+                          showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) {
+                                          return Container(
+                                            color: Color(0xFFEFB83C),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
+                                                ListTile(
+                                                  leading: Icon(
+                                                      Icons.text_format,
+                                                      size: 40,
+                                                      color: Color(0xFF2D2B2B)),
+                                                  title: Text(
+                                                    'Text-to-Image',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Roboto',
+                                                      fontSize: 25,
+                                                      fontWeight: FontWeight.w300,
                                                       color: Color(0xFF2D2B2B),
-                                                    )),
-                                                title: Text(
-                                                  'Image-to-Image',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: 25,
-                                                    fontWeight: FontWeight.w300,
-                                                    color: Color(0xFF2D2B2B),
+                                                    ),
                                                   ),
+                                                  onTap: () {
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                GenerateStepOneText()));
+                                                  },
                                                 ),
-                                                onTap: () {
-                                                  Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              GenerateStepOneImage()));
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      });
-                      },
-                      child: Container(
-                        height: 33,
-                        width: 60,
-                        child: Center(
-                          child: Text(
-                            "+",
-                            style: TextStyle(
-                              fontFamily: "Roboto",
-                              fontWeight: FontWeight.w900,
-                              fontSize: 24,
+                                                ListTile(
+                                                  leading: Container(
+                                                      margin: EdgeInsets.only(
+                                                          left: 7),
+                                                      child: Icon(
+                                                        Icons.image_search,
+                                                        size: 30,
+                                                        color: Color(0xFF2D2B2B),
+                                                      )),
+                                                  title: Text(
+                                                    'Image-to-Image',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Roboto',
+                                                      fontSize: 25,
+                                                      fontWeight: FontWeight.w300,
+                                                      color: Color(0xFF2D2B2B),
+                                                    ),
+                                                  ),
+                                                  onTap: () {
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                GenerateStepOneImage()));
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        });
+                        },
+                        child: Container(
+                          height: 33,
+                          width: 60,
+                          child: Center(
+                            child: Text(
+                              "+",
+                              style: TextStyle(
+                                fontFamily: "Roboto",
+                                fontWeight: FontWeight.w900,
+                                fontSize: 24,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ))
-              ],
+                      ))
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

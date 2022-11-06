@@ -3,8 +3,7 @@
 import "package:flutter/material.dart";
 
 class SettingsOptionTwo extends StatefulWidget {
-  final bool isClicked;
-  const SettingsOptionTwo({Key? key, required this.isClicked})
+  const SettingsOptionTwo({Key? key, })
       : super(key: key);
 
   @override
@@ -17,14 +16,14 @@ class _SettingsOptionTwoState extends State<SettingsOptionTwo> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: widget.isClicked ? Colors.white : Color(0xFF2D2B2B),
+        backgroundColor: Color(0xFF2D2B2B),
         title: Text(
           "Settings",
           style: TextStyle(
             fontFamily: "Roboto",
             fontWeight: FontWeight.w700,
             fontSize: 30,
-            color: widget.isClicked ? Color(0xFF2D2B2B) : Colors.white,
+            color: Colors.white,
           ),
         ),
         centerTitle: true,
@@ -38,7 +37,7 @@ class _SettingsOptionTwoState extends State<SettingsOptionTwo> {
         ),
       ),
       body: Container(
-        color: widget.isClicked ? Colors.white : Color(0xFF2D2B2B),
+        color: Color(0xFF2D2B2B),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Container(
@@ -58,13 +57,13 @@ class _SettingsOptionTwoState extends State<SettingsOptionTwo> {
                       fontFamily: 'Roboto',
                       fontSize: 20,
                       color:
-                          widget.isClicked ? Color(0xFF2D2B2B) : Colors.white,
+                          Colors.white,
                     ),
                   ),
                 ),
                 Container(
                   height: 0.5,
-                  color: widget.isClicked ? Color(0xFF2D2B2B) : Colors.white,
+                  color: Colors.white,
                 ),
                 SizedBox(
                   height: 20,
@@ -79,13 +78,13 @@ class _SettingsOptionTwoState extends State<SettingsOptionTwo> {
                       fontFamily: 'Roboto',
                       fontSize: 20,
                       color:
-                          widget.isClicked ? Color(0xFF2D2B2B) : Colors.white,
+                          Colors.white,
                     ),
                   ),
                 ),
                 Container(
                   height: 0.5,
-                  color: widget.isClicked ? Color(0xFF2D2B2B) : Colors.white,
+                  color: Colors.white,
                 ),
                 SizedBox(
                   height: 20,
@@ -100,13 +99,13 @@ class _SettingsOptionTwoState extends State<SettingsOptionTwo> {
                       fontFamily: 'Roboto',
                       fontSize: 20,
                       color:
-                          widget.isClicked ? Color(0xFF2D2B2B) : Colors.white,
+                          Colors.white,
                     ),
                   ),
                 ),
                 Container(
                   height: 0.5,
-                  color: widget.isClicked ? Color(0xFF2D2B2B) : Colors.white,
+                  color: Colors.white,
                 ),
               ],
             ),

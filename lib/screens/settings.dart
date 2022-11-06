@@ -12,8 +12,7 @@ import 'package:provider/provider.dart';
 import '../provider/google_sign_in.dart';
 
 class Settings extends StatefulWidget {
-  final bool isClicked;
-  Settings({Key? key, required this.isClicked}) : super(key: key);
+  Settings({Key? key, }) : super(key: key);
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -65,14 +64,14 @@ class _SettingsState extends State<Settings> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: widget.isClicked ? Colors.white : Color(0xFF2D2B2B),
+        backgroundColor: Color(0xFF2D2B2B),
         title: Text(
           "Settings",
           style: TextStyle(
             fontFamily: "Roboto",
             fontWeight: FontWeight.w700,
             fontSize: 30,
-            color: widget.isClicked ? Color(0xFFEFB83C) : Colors.white,
+            color: Colors.white,
           ),
         ),
         centerTitle: true,
@@ -86,7 +85,7 @@ class _SettingsState extends State<Settings> {
         ),
       ),
       body: Container(
-        color: widget.isClicked ? Colors.white : Color(0xFF2D2B2B),
+        color: Color(0xFF2D2B2B),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -107,7 +106,7 @@ class _SettingsState extends State<Settings> {
                         fontFamily: 'Roboto',
                         // fontWeight: FontWeight.w300,
                         color:
-                            widget.isClicked ? Color(0xFF2D2B2B) : Colors.white,
+                            Colors.white,
                         fontSize: 18,
                       ),
                     ),
@@ -135,9 +134,7 @@ class _SettingsState extends State<Settings> {
                               user.displayName!,
                               style: TextStyle(
                                   fontWeight: FontWeight.w300,
-                                  color: widget.isClicked
-                                      ? Color(0xFF2D2B2B)
-                                      : Colors.grey[300],
+                                  color: Colors.grey[300],
                                   fontFamily: 'Roboto',
                                   fontSize: 17),
                             ),
@@ -147,9 +144,7 @@ class _SettingsState extends State<Settings> {
                             Text(
                               "UI/UX Designer",
                               style: TextStyle(
-                                  color: widget.isClicked
-                                      ? Colors.grey[600]
-                                      : Colors.grey[400],
+                                  color: Colors.grey[400],
                                   fontFamily: 'Roboto',
                                   fontSize: 14),
                             ),
@@ -184,9 +179,7 @@ class _SettingsState extends State<Settings> {
                           Text(
                             "Settings",
                             style: TextStyle(
-                              color: widget.isClicked
-                                  ? Color(0xFF2D2B2B)
-                                  : Colors.white,
+                              color: Colors.white,
                               fontFamily: 'Roboto',
                               fontSize: 18,
                             ),
@@ -214,9 +207,7 @@ class _SettingsState extends State<Settings> {
                                   child: Text(
                                     "Settings 1 (Switch)",
                                     style: TextStyle(
-                                      color: widget.isClicked
-                                          ? Color(0xFF2D2B2B)
-                                          : Colors.white,
+                                      color: Colors.white,
                                       fontFamily: 'Roboto',
                                       fontSize: 15,
                                       fontWeight: FontWeight.w300,
@@ -251,8 +242,7 @@ class _SettingsState extends State<Settings> {
                           GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => SettingsOptionTwo(
-                                      isClicked: widget.isClicked)));
+                                  builder: (context) => SettingsOptionTwo()));
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -272,9 +262,7 @@ class _SettingsState extends State<Settings> {
                                     child: Text(
                                       "Settings 2",
                                       style: TextStyle(
-                                        color: widget.isClicked
-                                            ? Color(0xFF2D2B2B)
-                                            : Colors.white,
+                                        color: Colors.white,
                                         fontFamily: 'Roboto',
                                         fontSize: 15,
                                         fontWeight: FontWeight.w300,
@@ -287,15 +275,11 @@ class _SettingsState extends State<Settings> {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  SettingsOptionTwo(
-                                                      isClicked:
-                                                          widget.isClicked)));
+                                                  SettingsOptionTwo()));
                                     },
                                     icon: Icon(
                                       Icons.arrow_right,
-                                      color: widget.isClicked
-                                          ? Colors.grey[600]
-                                          : Colors.grey[300],
+                                      color: Colors.grey[300],
                                     ))
                               ],
                             ),
@@ -323,9 +307,7 @@ class _SettingsState extends State<Settings> {
                                   child: DropdownButtonFormField<String>(
                                     decoration:
                                         InputDecoration.collapsed(hintText: ''),
-                                    dropdownColor: widget.isClicked
-                                        ? Colors.white
-                                        : Color(0xFF2D2B2B),
+                                    dropdownColor: Color(0xFF2D2B2B),
                                     isExpanded: true,
                                     items: settingsItems
                                         .map(buildMenuItem)
@@ -333,16 +315,12 @@ class _SettingsState extends State<Settings> {
                                     value: settingsItems[value!],
                                     icon: Icon(
                                       Icons.arrow_drop_down,
-                                      color: widget.isClicked
-                                          ? Colors.grey[600]
-                                          : Colors.grey[300],
+                                      color: Colors.grey[300],
                                     ),
                                     hint: Text(
                                       "Settings 3 (Dropdown)",
                                       style: TextStyle(
-                                        color: widget.isClicked
-                                            ? Color(0xFF2D2B2B)
-                                            : Colors.white,
+                                        color: Colors.white,
                                         fontFamily: 'Roboto',
                                         fontSize: 15,
                                         fontWeight: FontWeight.w300,
@@ -418,7 +396,7 @@ class _SettingsState extends State<Settings> {
         child: Text(
           item,
           style: TextStyle(
-            color: widget.isClicked ? Color(0xFF2D2B2B) : Colors.white,
+            color: Colors.white,
             fontFamily: 'Roboto',
             fontSize: 15,
             fontWeight: FontWeight.w300,

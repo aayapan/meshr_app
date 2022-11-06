@@ -11,7 +11,7 @@ class ViewGallery3D extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF2D2B2B),
         title: Text(
           "TITLE",
           style: TextStyle(
@@ -54,8 +54,8 @@ class ViewGallery3D extends StatelessWidget {
           Expanded(
             child: Container(
               // THIS IS WHERE WE CONTAIN THE 3D OBJECT VIEWER
-              height: 534, //570 if no navbar
-              color: Colors.white,
+              //height: 534, //570 if no navbar
+              color: Color(0xFF2D2B2B),
             ),
           ),
         ],

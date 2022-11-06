@@ -21,6 +21,7 @@ class FilesLocalStorage {
     objFileNames = _myBox.get('OBJLIST');
     thumbFileNames = _myBox.get('THUMBLIST');
     imageFileNames = _myBox.get('IMGLIST');
+    print("LOAD DATA!");
   }
 // UPDATE THE DATA
   void updateData() {
