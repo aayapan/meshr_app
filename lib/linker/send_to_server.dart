@@ -33,7 +33,7 @@ import 'package:path/path.dart' as path;
 import 'S3_url_maker.dart';
 
 
-Uri PYTHON_SERVER = Uri.parse("http://43.206.150.140:8080/req");
+Uri PYTHON_SERVER = Uri.parse("http://65.1.180.246:8080/req");
 
 
 
@@ -79,20 +79,20 @@ class RequestHandler{
 
   bool requestSuccess = true;
 
-  Future<void> tx2im_request(String rqid, String prompt){
+  Future<List<String>> tx2im_request(String rqid, String prompt){
     return request ({"RequestID" : rqid, "Prompt" : prompt, "RequestType" : "TX2IM"});
   }
 
-  Future<void> im2im_request(String rqid, String prompt, FileHandler fh, List<String> fn){
+  Future<List<String>> im2im_request(String rqid, String prompt, FileHandler fh, List<String> fn){
     return request ({"RequestID" : rqid, "Prompt" : prompt, "RequestType" : "IM2IM", "DownloadUrl" : fh.fileName.toString(), "FileName" : fn.toString()});
   }
   
-  Future<void> im2ms_request(String rqid, FileHandler fh, List<String> fn){
+  Future<List<String>> im2ms_request(String rqid, FileHandler fh, List<String> fn){
     return request ({"RequestID" : rqid, "RequestType" : "IM2MS", "DownloadUrl" : fh.fileName.toString(), "FileName" : fn.toString()});
   }
   
 
-  Future<void> request(Map body) async{
+  Future<List<String>> request(Map body) async{
 
     try{
       var response = await http.post(PYTHON_SERVER, body: json.encode(body));
@@ -102,7 +102,7 @@ class RequestHandler{
       }
 
       var downloadLinks = await jsonDecode(response.body);
-      print(downloadLinks);
+      return downloadLinks;
     } catch (e) {
       throw (e);
     }

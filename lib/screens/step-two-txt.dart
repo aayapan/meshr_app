@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:meshr_app/screens/image-help.dart';
 import 'package:meshr_app/screens/view-gallery-img.dart';
@@ -8,10 +9,13 @@ import 'package:meshr_app/widgets/generate-footer.dart';
 import 'package:meshr_app/widgets/generate-header.dart';
 import 'package:meshr_app/widgets/output-item.dart';
 
+import 'package:meshr_app/linker/request_id_generator.dart';
+
+import '../linker/send_to_server.dart';
+
 class GenerateStepTwoText extends StatefulWidget {
-  GenerateStepTwoText({
-    Key? key,
-  }) : super(key: key);
+  String userPrompt;
+  GenerateStepTwoText({Key? key, required this.userPrompt}) : super(key: key);
 
   @override
   State<GenerateStepTwoText> createState() => _GenerateStepTwoTextState();
@@ -32,10 +36,10 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
 
   Future<List<String>> textToImage() async {
     List<String> response = [];
-    await Future.delayed(Duration(seconds: 10)).then((value) {
-      print('PASOK KA SA FUTURE');
-      response = ['test', 'test2'];
-    });
+    final user = FirebaseAuth.instance.currentUser!.displayName;
+    RequestHandler rh = RequestHandler();
+    String rqid = RequestID.create(user!);
+    response = await rh.tx2im_request(rqid, widget.userPrompt);
     return response;
   }
 

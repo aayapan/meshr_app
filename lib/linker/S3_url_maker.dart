@@ -9,7 +9,7 @@ class UrlMaker {
   Uri downloadUrl = Uri();
   String fileName = '';
 
-  Uri url = Uri.parse('http://18.183.40.87/generatePresignedUrl');
+  Uri url = Uri.parse('http://13.233.198.233/generatePresignedUrl');
 
   Future<Uri> createURL(String fileType) async{
 
@@ -31,7 +31,7 @@ class UrlMaker {
           print("Hello3");
           uploadUrl = Uri.parse(result["uploadUrl"]);
           var string = uploadUrl.toString().split('/');
-          fileName = string[3].substring(0, 40);
+          fileName = string[4].substring(0, 40);
           downloadUrl = Uri.parse(result["downloadUrl"]);
           print("Hello4");
           return uploadUrl;

@@ -1,12 +1,17 @@
 // ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers
 
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'package:meshr_app/linker/send_to_server.dart';
 import 'package:meshr_app/screens/image-help.dart';
 import 'package:meshr_app/screens/step-two-txt.dart';
 import 'package:meshr_app/screens/step-two.dart';
 import 'package:meshr_app/widgets/generate-footer.dart';
 import 'package:meshr_app/widgets/generate-header.dart';
 import 'package:meshr_app/widgets/proceed-button.dart';
+
+import 'package:meshr_app/linker/request_id_generator.dart';
+
 
 class GenerateStepOneText extends StatefulWidget {
   GenerateStepOneText({Key? key,}) : super(key: key);
@@ -19,6 +24,9 @@ class _GenerateStepOneTextState extends State<GenerateStepOneText> {
   String _enteredText = '';
   late int charCounter;
   bool _clickable = false;
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +104,9 @@ class _GenerateStepOneTextState extends State<GenerateStepOneText> {
                   ),
                   ProceedButton(
                     clickable: _clickable,
-                    onPressed: () {
+                    onPressed: () async { 
                       Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => GenerateStepTwoText()));
+                    builder: (context) => GenerateStepTwoText(userPrompt: _enteredText)));
                     },
                   )
                 ],
