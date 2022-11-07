@@ -22,7 +22,7 @@ class StepTwoPageFour extends StatelessWidget {
             TextButton(
               onPressed: (() {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => GenerateStepTwoText(links: [""])));
+                    builder: (context) => GenerateStepTwoText(userPrompt: "",)));
               }),
               child: Container(
                 decoration: BoxDecoration(

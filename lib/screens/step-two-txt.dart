@@ -2,16 +2,14 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'package:meshr_app/linker/request_id_generator.dart';
+import 'package:meshr_app/linker/send_to_server.dart';
 import 'package:meshr_app/screens/image-help.dart';
 import 'package:meshr_app/screens/view-gallery-img.dart';
 import 'package:meshr_app/screens/view-output-img.dart';
 import 'package:meshr_app/widgets/generate-footer.dart';
 import 'package:meshr_app/widgets/generate-header.dart';
 import 'package:meshr_app/widgets/output-item.dart';
-
-import 'package:meshr_app/linker/request_id_generator.dart';
-
-import '../linker/send_to_server.dart';
 
 class GenerateStepTwoText extends StatefulWidget {
   String userPrompt;
@@ -40,6 +38,11 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
     RequestHandler rh = RequestHandler();
     String rqid = RequestID.create(user!);
     response = await rh.tx2im_request(rqid, widget.userPrompt);
+    // Future.delayed(Duration(seconds: 3));
+    // response = [
+    //   "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg",
+    //   "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg"
+    // ];
     return response;
   }
 
@@ -83,12 +86,14 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
                       return GridView.count(
                         crossAxisCount: 2,
                         children: List.generate(snapshot.data!.length, (index) {
-                          return OutputItem(onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: ((context) {
-                              return ViewOutputImage();
-                            })));
-                          });
+                          return OutputItem(
+                              imageUrl: snapshot.data![index],
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: ((context) {
+                                  return ViewOutputImage(imageUrl: snapshot.data![index]);
+                                })));
+                              });
                         }),
                       );
                     }

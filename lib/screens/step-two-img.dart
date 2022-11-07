@@ -111,13 +111,17 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
                   ProceedButton(
                     clickable: _clickable,
                     onPressed: () async {
+                      List<String> response = [];
                       String rqid = RequestID.create(user!);
                       _filename = FileNameConvert.convert(widget.files, rqid);
-                      await fh.upload(rqid, widget.files).then((value) {
-                        rh.im2im_request(rqid, _enteredText, fh, _filename);
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ViewOutputImage()));
-                      });
+                      await fh.upload(rqid, widget.files);
+                      response = await rh.im2im_request(
+                          rqid, _enteredText, fh, _filename);
+
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ViewOutputImage(
+                                imageUrl: response[0],
+                              )));
                     },
                   )
                 ],

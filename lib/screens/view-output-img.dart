@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:meshr_app/widgets/output-footer.dart';
 
 class ViewOutputImage extends StatelessWidget {
-  ViewOutputImage({Key? key,}) : super(key: key);
+  String imageUrl;
+  ViewOutputImage({Key? key, required this.imageUrl}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +32,10 @@ class ViewOutputImage extends StatelessWidget {
         ],
       ),
       body: Container(
+        width: double.infinity,
         color: Colors.white,
         child: Center(
-          child: Text("SAMPLE IMAGE OUTPUT"),
+          child: Image.network(imageUrl, fit: BoxFit.cover,),
         ),
       ),
       bottomNavigationBar: OutputBottomNav(),
