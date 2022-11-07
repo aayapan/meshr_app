@@ -46,6 +46,12 @@ class  FileHandler{
   final List<String> fileName = [];
   UrlMaker urlmaker= UrlMaker();
 
+  static final Map<String, String> httpHeaders = {
+      HttpHeaders.contentTypeHeader: "application/json",
+      "Connection": "Keep-Alive",
+      "Keep-Alive": "timeout=5, max=1000"
+  };
+
   Future<void> upload(String rqid, List<File> file) async{
     try {
 
@@ -94,15 +100,19 @@ class RequestHandler{
 
   Future<List<String>> request(Map body) async{
 
+    List<String> downloadLink = [];
+
     try{
-      var response = await http.post(PYTHON_SERVER, body: json.encode(body));
+      var response = await http.post(PYTHON_SERVER, body: json.encode(body), headers: FileHandler.httpHeaders);
 
       if (response.statusCode != 200){
          throw "Request Not Processed";
       }
 
-      var downloadLinks = await jsonDecode(response.body);
-      return downloadLinks;
+      List newRes = await jsonDecode(response.body);
+      newRes.forEach((element) {downloadLink.add(element);});
+      print(downloadLink);
+      return downloadLink;
     } catch (e) {
       throw (e);
     }
