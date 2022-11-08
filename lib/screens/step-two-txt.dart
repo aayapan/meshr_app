@@ -94,11 +94,11 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return GridView.count(
-                        crossAxisCount: 2,
-                        children: List.generate(4, (index) {
-                          return getShimmer();
-                        }),
-                      );
+                      crossAxisCount: 2,
+                      children: List.generate(4, (index) {
+                        return getShimmer();
+                      }),
+                    );
                   } else {
                     if (snapshot.hasError) {
                       return Center(
@@ -110,12 +110,16 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
                         children: List.generate(snapshot.data!.length, (index) {
                           return OutputItem(
                               imageUrl: snapshot.data![index],
-                              onPressed: () {
-                                Navigator.push(context,
+                              onPressed: () async {
+                                final result = await Navigator.push(context,
                                     MaterialPageRoute(builder: ((context) {
                                   return ViewOutputImage(
                                       imageUrl: snapshot.data![index]);
                                 })));
+                                print("RESULT: $result");
+                                if (result) {
+                                  setState(() {});
+                                }
                               });
                         }),
                       );

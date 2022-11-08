@@ -68,9 +68,6 @@ class _DrawingPageState extends State<DrawingPage> {
           File('${directory.path}/${DateTime.now().toIso8601String()}.jpg');
       file = await file.writeAsBytes(pngBytes, flush: true);
 
-      File compressedFile = await FlutterNativeImage.compressImage(file.path,
-          quality: 50, percentage: 50, targetWidth: 512, targetHeight: 512);
-
       filesToPass.add(file);
 
       // var saved = await ImageGallerySaver.saveImage(
@@ -129,10 +126,15 @@ class _DrawingPageState extends State<DrawingPage> {
         heroTag: 'saveAndProceed',
         backgroundColor: Color(0xFFEFB83C),
         onPressed: () {
-          save().then((value) {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          save().then((value) async {
+            final result = await Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) {
               return GenerateStepTwoImage(files: filesToPass);
             }));
+            print("RESULT: $result");
+            if (result) {
+              setState(() {});
+            }
           });
         },
         child: Icon(

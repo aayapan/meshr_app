@@ -31,6 +31,7 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
   String _enteredText = '';
   late int charCounter;
   bool _clickable = false;
+  String text = "Proceed";
 
   FileHandler fh = FileHandler();
   RequestHandler rh = RequestHandler();
@@ -112,10 +113,35 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
                     ),
                   ),
                   ProceedButton(
+                    text: text,
                     clickable: _clickable,
                     onPressed: () async {
+                      setState(() {
+                        _clickable = false;
+                        text = "Generating";
+                      });
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                          "Image Generating! Please wait...",
+                          style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15),
+                          textAlign: TextAlign.center,
+                        ),
+                        backgroundColor: Color(0xFFEFB83C),
+                        duration: Duration(seconds: 3),
+                        behavior: SnackBarBehavior.floating,
+                        margin:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 60),
+                        elevation: 0,
+                      ));
+
+                      FocusManager.instance.primaryFocus?.unfocus();
                       List<String> response = [];
-                      var name = utf8.encode((FirebaseAuth.instance.currentUser!.displayName)!);
+                      var name = utf8.encode(
+                          (FirebaseAuth.instance.currentUser!.displayName)!);
                       String user = sha1.convert(name).toString();
                       String rqid = RequestID.create(user);
                       _filename = FileNameConvert.convert(widget.files, rqid);
@@ -123,10 +149,15 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
                       response = await rh.im2im_request(
                           rqid, _enteredText, fh, _filename, user);
 
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ViewOutputImage(
-                                imageUrl: response[0],
-                              )));
+                      final result =
+                          await Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ViewOutputImage(
+                                    imageUrl: response[0],
+                                  )));
+                      print("RESULT: $result");
+                      if (result) {
+                        setState(() {});
+                      }
                     },
                   )
                 ],
