@@ -35,15 +35,15 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
 
   Future<List<String>> textToImage() async {
     List<String> response = [];
-    // final user = FirebaseAuth.instance.currentUser!.displayName;
-    // RequestHandler rh = RequestHandler();
-    // String rqid = RequestID.create(user!);
-    // response = await rh.tx2im_request(rqid, widget.userPrompt);
-    await Future.delayed(Duration(seconds: 10));
-    response = [
-      "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg",
-      "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg"
-    ];
+    final user = FirebaseAuth.instance.currentUser!.displayName;
+    RequestHandler rh = RequestHandler();
+    String rqid = RequestID.create(user!);
+    response = await rh.tx2im_request(rqid, widget.userPrompt);
+    // await Future.delayed(Duration(seconds: 10));
+    // response = [
+    //   "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg",
+    //   "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg"
+    // ];
     return response;
   }
 
