@@ -45,6 +45,7 @@ dependencies:
   video_player: ^2.4.7
   http: ^0.13.5
   shimmer: ^2.0.0
+  flutter_native_image: ^0.0.6+1
 
 dev_dependencies:
   flutter_test:

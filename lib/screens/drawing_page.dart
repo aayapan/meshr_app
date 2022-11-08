@@ -8,6 +8,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:meshr_app/screens/drawn_line.dart';
 import 'package:meshr_app/screens/sketcher.dart';
@@ -24,7 +25,7 @@ class DrawingPage extends StatefulWidget {
 class _DrawingPageState extends State<DrawingPage> {
   // List of Files to pass to the server
   List<File> filesToPass = [];
-  
+
   final GlobalKey _globalKey = GlobalKey();
   List<DrawnLine> lines = <DrawnLine>[];
   late DrawnLine? line;
@@ -35,6 +36,12 @@ class _DrawingPageState extends State<DrawingPage> {
       StreamController<List<DrawnLine>>.broadcast();
   StreamController<DrawnLine> currentLineStreamController =
       StreamController<DrawnLine>.broadcast();
+
+  Future<File> compressFile(File file) async {
+    File compressedFile = await FlutterNativeImage.compressImage(file.path,
+        quality: 50, targetHeight: 512, targetWidth: 512);
+    return compressedFile;
+  }
 
   Future<void> save() async {
     try {
@@ -49,7 +56,9 @@ class _DrawingPageState extends State<DrawingPage> {
       File file =
           File('${directory.path}/${DateTime.now().toIso8601String()}.png');
       file = await file.writeAsBytes(pngBytes, flush: true);
-      filesToPass.add(file);
+      File compressed = await compressFile(file);
+
+      filesToPass.add(compressed);
 
       // var saved = await ImageGallerySaver.saveImage(
       //   pngBytes,
@@ -68,7 +77,8 @@ class _DrawingPageState extends State<DrawingPage> {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(
         "Canvas has been cleared!",
-        style: TextStyle(fontFamily: 'Roboto', fontWeight: FontWeight.w700, fontSize: 15),
+        style: TextStyle(
+            fontFamily: 'Roboto', fontWeight: FontWeight.w700, fontSize: 15),
         textAlign: TextAlign.center,
       ),
       backgroundColor: Color(0xFFEFB83C),
@@ -105,9 +115,10 @@ class _DrawingPageState extends State<DrawingPage> {
       floatingActionButton: FloatingActionButton(
         heroTag: 'saveAndProceed',
         backgroundColor: Color(0xFFEFB83C),
-        onPressed: (){
+        onPressed: () {
           save().then((value) {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context){
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) {
               return GenerateStepTwoImage(files: filesToPass);
             }));
           });
@@ -274,7 +285,7 @@ class _DrawingPageState extends State<DrawingPage> {
 
   Widget buildBackButton() {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Navigator.pop(context);
       },
       child: CircleAvatar(
