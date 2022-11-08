@@ -54,7 +54,7 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
         backgroundColor: Color(0xFFEFB83C),
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, true);
           },
           icon: ImageIcon(AssetImage("assets/images/back-icon.png")),
           iconSize: 40.0,
@@ -156,7 +156,9 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
                                   )));
                       print("RESULT: $result");
                       if (result) {
-                        setState(() {});
+                        setState(() {
+                          widget.files = [];
+                        });
                       }
                     },
                   )

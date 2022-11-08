@@ -133,7 +133,9 @@ class _DrawingPageState extends State<DrawingPage> {
             }));
             print("RESULT: $result");
             if (result) {
-              setState(() {});
+              setState(() {
+                filesToPass = [];
+              });
             }
           });
         },
