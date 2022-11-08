@@ -49,7 +49,7 @@ Future<void> main() async{
       theme: ThemeData(
         fontFamily: "Roboto",
       ),
-      home: HomePage(),
+      home: SplashScreen(),
     ),
   ));
 }
