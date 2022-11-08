@@ -44,6 +44,7 @@ dependencies:
   image_gallery_saver: ^1.6.9
   video_player: ^2.4.7
   http: ^0.13.5
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

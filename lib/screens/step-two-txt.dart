@@ -10,6 +10,7 @@ import 'package:meshr_app/screens/view-output-img.dart';
 import 'package:meshr_app/widgets/generate-footer.dart';
 import 'package:meshr_app/widgets/generate-header.dart';
 import 'package:meshr_app/widgets/output-item.dart';
+import 'package:meshr_app/widgets/shimmer-loading.dart';
 
 class GenerateStepTwoText extends StatefulWidget {
   String userPrompt;
@@ -34,15 +35,15 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
 
   Future<List<String>> textToImage() async {
     List<String> response = [];
-    final user = FirebaseAuth.instance.currentUser!.displayName;
-    RequestHandler rh = RequestHandler();
-    String rqid = RequestID.create(user!);
-    response = await rh.tx2im_request(rqid, widget.userPrompt);
-    // Future.delayed(Duration(seconds: 3));
-    // response = [
-    //   "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg",
-    //   "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg"
-    // ];
+    // final user = FirebaseAuth.instance.currentUser!.displayName;
+    // RequestHandler rh = RequestHandler();
+    // String rqid = RequestID.create(user!);
+    // response = await rh.tx2im_request(rqid, widget.userPrompt);
+    await Future.delayed(Duration(seconds: 10));
+    response = [
+      "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg",
+      "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg"
+    ];
     return response;
   }
 
@@ -87,9 +88,12 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
                 future: textToImage(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return GridView.count(
+                        crossAxisCount: 2,
+                        children: List.generate(4, (index) {
+                          return getShimmer();
+                        }),
+                      );
                   } else {
                     if (snapshot.hasError) {
                       return Center(
