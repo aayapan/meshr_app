@@ -33,7 +33,7 @@ class UrlMaker {
           var string = uploadUrl.toString().split('/');
           fileName = string[4].substring(0, 40);
           downloadUrl = Uri.parse(result["downloadUrl"]);
-          print("Hello4");
+          print(fileName);
           return uploadUrl;
         } else {
           throw "URL not generated";

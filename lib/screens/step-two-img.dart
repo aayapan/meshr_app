@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +16,8 @@ import 'package:meshr_app/screens/view-output-img.dart';
 import 'package:meshr_app/widgets/generate-footer.dart';
 import 'package:meshr_app/widgets/generate-header.dart';
 import 'package:meshr_app/widgets/proceed-button.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
 
 class GenerateStepTwoImage extends StatefulWidget {
   List<File> files;
@@ -112,11 +115,13 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
                     clickable: _clickable,
                     onPressed: () async {
                       List<String> response = [];
-                      String rqid = RequestID.create(user!);
+                      var name = utf8.encode((FirebaseAuth.instance.currentUser!.displayName)!);
+                      String user = sha1.convert(name).toString();
+                      String rqid = RequestID.create(user);
                       _filename = FileNameConvert.convert(widget.files, rqid);
                       await fh.upload(rqid, widget.files);
                       response = await rh.im2im_request(
-                          rqid, _enteredText, fh, _filename);
+                          rqid, _enteredText, fh, _filename, user);
 
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ViewOutputImage(

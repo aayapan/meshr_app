@@ -36,7 +36,7 @@ class _GenerateStepOneImageState extends State<GenerateStepOneImage> {
   // Image2Image function that'll get an image from device's gallery
   Future uploadImage() async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50, maxHeight: 512, maxWidth: 512);
       if (image == null) return;
       final img = await saveImagePermanently(image.path);
       print("IMAGE PATH: ${img.path}");
@@ -53,7 +53,7 @@ class _GenerateStepOneImageState extends State<GenerateStepOneImage> {
   Future captureImage() async {
     try {
       final image = await ImagePicker().pickImage(
-          source: ImageSource.camera, preferredCameraDevice: CameraDevice.rear);
+          source: ImageSource.camera, preferredCameraDevice: CameraDevice.rear, imageQuality: 50, maxHeight: 512, maxWidth: 512);
       if (image == null) return;
       final img = await saveImagePermanently(image.path);
       print("IMAGE PATH: ${img.path}");

@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:meshr_app/linker/request_id_generator.dart';
@@ -11,6 +13,8 @@ import 'package:meshr_app/widgets/generate-footer.dart';
 import 'package:meshr_app/widgets/generate-header.dart';
 import 'package:meshr_app/widgets/output-item.dart';
 import 'package:meshr_app/widgets/shimmer-loading.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
 
 class GenerateStepTwoText extends StatefulWidget {
   String userPrompt;
@@ -35,10 +39,11 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
 
   Future<List<String>> textToImage() async {
     List<String> response = [];
-    final user = FirebaseAuth.instance.currentUser!.displayName;
+    var name = utf8.encode((FirebaseAuth.instance.currentUser!.displayName)!);
+    String user = sha1.convert(name).toString();
     RequestHandler rh = RequestHandler();
-    String rqid = RequestID.create(user!);
-    response = await rh.tx2im_request(rqid, widget.userPrompt);
+    String rqid = RequestID.create(user);
+    response = await rh.tx2im_request(rqid, widget.userPrompt, user);
     // await Future.delayed(Duration(seconds: 10));
     // response = [
     //   "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg",

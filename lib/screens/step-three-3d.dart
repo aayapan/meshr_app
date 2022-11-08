@@ -451,7 +451,7 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
                         String rqid = RequestID.create("user");
                         _filename = FileNameConvert.convert(passImages, rqid);
                         await fh.upload(rqid, passImages).then((value) {
-                          rh.im2ms_request(rqid, fh, _filename);
+                          // rh.im2ms_request(rqid, fh, _filename);
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => ViewOutput3D()));
                         });
