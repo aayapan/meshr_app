@@ -34,15 +34,15 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
 
   Future<List<String>> textToImage() async {
     List<String> response = [];
-    final user = FirebaseAuth.instance.currentUser!.displayName;
-    RequestHandler rh = RequestHandler();
-    String rqid = RequestID.create(user!);
-    response = await rh.tx2im_request(rqid, widget.userPrompt);
-    // Future.delayed(Duration(seconds: 3));
-    // response = [
-    //   "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg",
-    //   "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg"
-    // ];
+    // final user = FirebaseAuth.instance.currentUser!.displayName;
+    // RequestHandler rh = RequestHandler();
+    // String rqid = RequestID.create(user!);
+    // response = await rh.tx2im_request(rqid, widget.userPrompt);
+    Future.delayed(Duration(seconds: 3));
+    response = [
+      "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg",
+      "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg"
+    ];
     return response;
   }
 
@@ -68,6 +68,19 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
           children: [
             GenerateHeaderText(
                 header: "Step 2:", subheader: "Choose your desired output"),
+            Container(
+              margin: EdgeInsets.only(top: 30, left: 15, right: 15),
+              width: double.infinity,
+              child: Center(
+                  child: Text(
+                'Prompt: ${widget.userPrompt}',
+                style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 20,
+                    fontWeight: FontWeight.w100,
+                    color: Color(0xFF2D2B2B)),
+              )),
+            ),
             Expanded(
                 child: Container(
               child: FutureBuilder<List<String>>(
@@ -91,7 +104,8 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
                               onPressed: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: ((context) {
-                                  return ViewOutputImage(imageUrl: snapshot.data![index]);
+                                  return ViewOutputImage(
+                                      imageUrl: snapshot.data![index]);
                                 })));
                               });
                         }),

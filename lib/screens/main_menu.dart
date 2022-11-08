@@ -206,8 +206,24 @@ class _MainMenuState extends State<MainMenu> {
                   image: "assets/images/Image2Mesh.png",
                   text: "Image-to-Mesh",
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => GenerateStepOne3D()));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                            "Currently in development!",
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15),
+                            textAlign: TextAlign.center,
+                          ),
+                          backgroundColor: Color(0xFFEFB83C),
+                          duration: Duration(seconds: 3),
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 60),
+                          elevation: 0,
+                        ));
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //     builder: (context) => GenerateStepOne3D()));
                   },
                 ),
                 SizedBox(

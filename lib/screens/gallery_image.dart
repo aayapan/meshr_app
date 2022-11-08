@@ -5,6 +5,7 @@ import 'dart:ffi';
 import "package:flutter/material.dart";
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:meshr_app/data/local-storage.dart';
+import 'package:meshr_app/screens/bottom_navigation.dart';
 import 'package:meshr_app/screens/drawing_page.dart';
 import 'package:meshr_app/screens/step-one-img.dart';
 import 'package:meshr_app/screens/step-one-txt.dart';
@@ -79,7 +80,7 @@ class _GalleryImageState extends State<GalleryImage> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, true);
           },
           icon: ImageIcon(AssetImage("assets/images/back-icon.png")),
           iconSize: 40.0,
@@ -104,8 +105,8 @@ class _GalleryImageState extends State<GalleryImage> {
                     color: Color(0xFF2D2B2B),
                     child: GridView.count(
                       crossAxisCount: 2,
-                      children: List.generate(fls.imageFileNames.length + 1,
-                          (index) {
+                      children:
+                          List.generate(fls.imageFileNames.length + 1, (index) {
                         return index == fls.imageFileNames.length
                             ? GridAddButton(
                                 onPressed: () {
@@ -118,8 +119,7 @@ class _GalleryImageState extends State<GalleryImage> {
                                             mainAxisSize: MainAxisSize.min,
                                             children: <Widget>[
                                               ListTile(
-                                                leading: Icon(
-                                                    Icons.text_format,
+                                                leading: Icon(Icons.text_format,
                                                     size: 40,
                                                     color: Color(0xFF2D2B2B)),
                                                 title: Text(
@@ -171,6 +171,22 @@ class _GalleryImageState extends State<GalleryImage> {
                               )
                             : GridItemImage(
                                 img: fls.imageFileNames[index],
+                                onPressed: () async {
+                                  final result = await Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                          builder: (context) =>
+                                              BottomNavigation(
+                                                isGallery: true,
+                                                isClicked: true,
+                                                isImg: true,
+                                                img: fls.imageFileNames[index],
+                                              )));
+                                  print("RESULT: $result");
+                                  if (result) {
+                                    print("PASOK RESULT");
+                                    setState(() {});
+                                  }
+                                },
                               );
                       }),
                     )),

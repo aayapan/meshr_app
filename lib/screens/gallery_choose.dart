@@ -1,14 +1,24 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:meshr_app/screens/bottom_navigation.dart';
 import 'package:meshr_app/screens/gallery_3d.dart';
 import 'package:meshr_app/screens/gallery_image.dart';
 
-class GalleryMain extends StatelessWidget {
+class GalleryMain extends StatefulWidget {
   int imgLength;
   int objLength;
-  GalleryMain({Key? key, required this.imgLength, required this.objLength,}) : super(key: key);
+  GalleryMain({
+    Key? key,
+    required this.imgLength,
+    required this.objLength,
+  }) : super(key: key);
 
+  @override
+  State<GalleryMain> createState() => _GalleryMainState();
+}
+
+class _GalleryMainState extends State<GalleryMain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,9 +59,22 @@ class GalleryMain extends StatelessWidget {
                       height: 70,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => GalleryImage()));
+                      onTap: () async {
+                        final result = await Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => GalleryImage()));
+                        print("RESULT: $result");
+                        if (result) {
+                          print("PASOK RESULT!");
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => BottomNavigation(
+                                        isGallery: true,
+                                        isClicked: false,
+                                        isImg: false,
+                                        img: "",
+                                      )));
+                        }
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 20),
@@ -59,11 +82,21 @@ class GalleryMain extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
+                              clipBehavior: Clip.antiAlias,
                               height: 150,
                               width: double.infinity,
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.white,),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.white,
+                              ),
+                              child: Image.asset(
+                                'assets/images/img-thumb.png',
+                                fit: BoxFit.fitWidth,
+                              ),
                             ),
-                            SizedBox(height: 7,),
+                            SizedBox(
+                              height: 7,
+                            ),
                             Text(
                               "Images",
                               style: TextStyle(
@@ -73,9 +106,11 @@ class GalleryMain extends StatelessWidget {
                                 fontSize: 20,
                               ),
                             ),
-                            SizedBox(height: 7,),
+                            SizedBox(
+                              height: 7,
+                            ),
                             Text(
-                              imgLength.toString(),
+                              widget.imgLength.toString(),
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontFamily: 'Roboto',
@@ -92,8 +127,24 @@ class GalleryMain extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Gallery3D()));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                            "Currently in development!",
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15),
+                            textAlign: TextAlign.center,
+                          ),
+                          backgroundColor: Color(0xFFEFB83C),
+                          duration: Duration(seconds: 3),
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 60),
+                          elevation: 0,
+                        ));
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //     builder: (context) => Gallery3D()));
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 20),
@@ -101,12 +152,21 @@ class GalleryMain extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
+                              clipBehavior: Clip.antiAlias,
                               height: 150,
                               width: double.infinity,
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.white,),
-                              
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.white,
+                              ),
+                              child: Image.asset(
+                                'assets/images/mesh-thumb.png',
+                                fit: BoxFit.fitWidth,
+                              ),
                             ),
-                            SizedBox(height: 7,),
+                            SizedBox(
+                              height: 7,
+                            ),
                             Text(
                               "3D Models",
                               style: TextStyle(
@@ -116,9 +176,11 @@ class GalleryMain extends StatelessWidget {
                                 fontSize: 20,
                               ),
                             ),
-                            SizedBox(height: 7,),
+                            SizedBox(
+                              height: 7,
+                            ),
                             Text(
-                              objLength.toString(),
+                              widget.objLength.toString(),
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontFamily: 'Roboto',

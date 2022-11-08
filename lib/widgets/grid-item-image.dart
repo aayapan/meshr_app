@@ -7,9 +7,11 @@ import 'package:meshr_app/screens/bottom_navigation.dart';
 
 class GridItemImage extends StatefulWidget {
   String img;
+  VoidCallback onPressed;
   GridItemImage({
     Key? key,
     required this.img,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -31,15 +33,7 @@ class _GridItemImageState extends State<GridItemImage> {
               onPrimary: Color(0xFFEFB83C),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(11.0))),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => BottomNavigation(
-                      isGallery: true,
-                      isClicked: true,
-                      isImg: true,
-                      img: widget.img,
-                    )));
-          },
+          onPressed: widget.onPressed,
           child: Container(
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
