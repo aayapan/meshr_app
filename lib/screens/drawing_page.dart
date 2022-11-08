@@ -8,12 +8,14 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:meshr_app/screens/drawn_line.dart';
 import 'package:meshr_app/screens/sketcher.dart';
 import 'package:meshr_app/screens/step-two-img.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 
 class DrawingPage extends StatefulWidget {
   const DrawingPage({Key? key}) : super(key: key);
@@ -37,10 +39,19 @@ class _DrawingPageState extends State<DrawingPage> {
   StreamController<DrawnLine> currentLineStreamController =
       StreamController<DrawnLine>.broadcast();
 
-  Future<File> compressFile(File file) async {
-    File compressedFile = await FlutterNativeImage.compressImage(file.path,
-        quality: 50, targetHeight: 512, targetWidth: 512);
-    return compressedFile;
+  Future<File> testCompressAndGetFile(File file, String targetPath) async {
+    var result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path,
+      targetPath,
+      quality: 50,
+      minHeight: 512,
+      minWidth: 512,
+    );
+
+    print(file.lengthSync());
+    print(result!.lengthSync());
+
+    return result;
   }
 
   Future<void> save() async {
@@ -54,11 +65,13 @@ class _DrawingPageState extends State<DrawingPage> {
       final directory = await getApplicationDocumentsDirectory();
       // final name = basename(imagePath);
       File file =
-          File('${directory.path}/${DateTime.now().toIso8601String()}.png');
+          File('${directory.path}/${DateTime.now().toIso8601String()}.jpg');
       file = await file.writeAsBytes(pngBytes, flush: true);
-      File compressed = await compressFile(file);
 
-      filesToPass.add(compressed);
+      File compressedFile = await FlutterNativeImage.compressImage(file.path,
+          quality: 50, percentage: 50, targetWidth: 512, targetHeight: 512);
+
+      filesToPass.add(file);
 
       // var saved = await ImageGallerySaver.saveImage(
       //   pngBytes,
@@ -117,8 +130,7 @@ class _DrawingPageState extends State<DrawingPage> {
         backgroundColor: Color(0xFFEFB83C),
         onPressed: () {
           save().then((value) {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return GenerateStepTwoImage(files: filesToPass);
             }));
           });
