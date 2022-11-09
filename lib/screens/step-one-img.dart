@@ -78,7 +78,6 @@ class _GenerateStepOneImageState extends State<GenerateStepOneImage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("CLEAR LIST FILES");
   }
 
   @override

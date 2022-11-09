@@ -5,10 +5,12 @@ import "package:flutter/material.dart";
 class ProceedButton extends StatefulWidget {
   bool clickable;
   VoidCallback onPressed;
+  String text;
   ProceedButton({
     Key? key,
     required this.clickable,
     required this.onPressed,
+    required this.text,
   }) : super(key: key);
 
   @override
@@ -41,7 +43,7 @@ class _ProceedButtonState extends State<ProceedButton> {
             ),
             onPressed: widget.clickable ? widget.onPressed : null,
             child: Text(
-              "Proceed",
+              widget.text,
               style: TextStyle(
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.w700,

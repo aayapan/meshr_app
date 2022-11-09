@@ -35,7 +35,7 @@ class ViewOutputImage extends StatelessWidget {
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, true);
           },
           icon: ImageIcon(AssetImage("assets/images/back-icon.png")),
           iconSize: 40.0,

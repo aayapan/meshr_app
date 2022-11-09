@@ -103,8 +103,9 @@ class _GenerateStepOneTextState extends State<GenerateStepOneText> {
                     ),
                   ),
                   ProceedButton(
+                    text: "Proceed",
                     clickable: _clickable,
-                    onPressed: () async { 
+                    onPressed: () { 
                       Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => GenerateStepTwoText(userPrompt: _enteredText)));
                     },

@@ -446,6 +446,7 @@ class _GenerateStepThree3DState extends State<GenerateStepThree3D> {
               Container(
                   margin: EdgeInsets.only(right: 15),
                   child: ProceedButton(
+                    text: "Proceed",
                       clickable: _clickable,
                       onPressed: () async {
                         String rqid = RequestID.create("user");

@@ -126,10 +126,17 @@ class _DrawingPageState extends State<DrawingPage> {
         heroTag: 'saveAndProceed',
         backgroundColor: Color(0xFFEFB83C),
         onPressed: () {
-          save().then((value) {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          save().then((value) async {
+            final result = await Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) {
               return GenerateStepTwoImage(files: filesToPass);
             }));
+            print("RESULT: $result");
+            if (result) {
+              setState(() {
+                filesToPass = [];
+              });
+            }
           });
         },
         child: Icon(
