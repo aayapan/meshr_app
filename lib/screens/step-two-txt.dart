@@ -39,16 +39,16 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
 
   Future<List<String>> textToImage() async {
     List<String> response = [];
-    var name = utf8.encode((FirebaseAuth.instance.currentUser!.displayName)!);
-    String user = sha1.convert(name).toString();
-    RequestHandler rh = RequestHandler();
-    String rqid = RequestID.create(user);
-    response = await rh.tx2im_request(rqid, widget.userPrompt, user);
-    // await Future.delayed(Duration(seconds: 10));
-    // response = [
-    //   "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg",
-    //   "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg"
-    // ];
+    // var name = utf8.encode((FirebaseAuth.instance.currentUser!.displayName)!);
+    // String user = sha1.convert(name).toString();
+    // RequestHandler rh = RequestHandler();
+    // String rqid = RequestID.create(user);
+    // response = await rh.tx2im_request(rqid, widget.userPrompt, user);
+    await Future.delayed(Duration(seconds: 10));
+    response = [
+      "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg",
+      "https://meshr-cloud-storage.s3.ap-south-1.amazonaws.com/T2I_Output/e051184a408f43850790c697cdd3bd870de2b98f_1_2022-11-06.jpg"
+    ];
     return response;
   }
 
@@ -110,16 +110,12 @@ class _GenerateStepTwoTextState extends State<GenerateStepTwoText> {
                         children: List.generate(snapshot.data!.length, (index) {
                           return OutputItem(
                               imageUrl: snapshot.data![index],
-                              onPressed: () async {
-                                final result = await Navigator.push(context,
+                              onPressed: () {
+                                Navigator.push(context,
                                     MaterialPageRoute(builder: ((context) {
                                   return ViewOutputImage(
                                       imageUrl: snapshot.data![index]);
                                 })));
-                                print("RESULT: $result");
-                                if (result) {
-                                  setState(() {});
-                                }
                               });
                         }),
                       );

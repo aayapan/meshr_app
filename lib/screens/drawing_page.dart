@@ -8,14 +8,11 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:meshr_app/screens/drawn_line.dart';
 import 'package:meshr_app/screens/sketcher.dart';
 import 'package:meshr_app/screens/step-two-img.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_native_image/flutter_native_image.dart';
 
 class DrawingPage extends StatefulWidget {
   const DrawingPage({Key? key}) : super(key: key);
@@ -39,20 +36,7 @@ class _DrawingPageState extends State<DrawingPage> {
   StreamController<DrawnLine> currentLineStreamController =
       StreamController<DrawnLine>.broadcast();
 
-  Future<File> testCompressAndGetFile(File file, String targetPath) async {
-    var result = await FlutterImageCompress.compressAndGetFile(
-      file.absolute.path,
-      targetPath,
-      quality: 50,
-      minHeight: 512,
-      minWidth: 512,
-    );
-
-    print(file.lengthSync());
-    print(result!.lengthSync());
-
-    return result;
-  }
+  
 
   Future<void> save() async {
     try {
@@ -118,7 +102,6 @@ class _DrawingPageState extends State<DrawingPage> {
         children: [
           buildAllPaths(context),
           buildCurrentPath(context),
-          buildStrokeToolbar(),
           buildColorToolbar(),
         ],
       ),
@@ -219,21 +202,6 @@ class _DrawingPageState extends State<DrawingPage> {
     linesStreamController.add(lines);
   }
 
-  Widget buildStrokeToolbar() {
-    return Positioned(
-      bottom: 100.0,
-      right: 10.0,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          buildStrokeButton(5.0),
-          buildStrokeButton(10.0),
-          buildStrokeButton(15.0),
-        ],
-      ),
-    );
-  }
 
   Widget buildStrokeButton(double strokeWidth) {
     return GestureDetector(
