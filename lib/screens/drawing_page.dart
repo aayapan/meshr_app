@@ -68,9 +68,6 @@ class _DrawingPageState extends State<DrawingPage> {
           File('${directory.path}/${DateTime.now().toIso8601String()}.jpg');
       file = await file.writeAsBytes(pngBytes, flush: true);
 
-      File compressedFile = await FlutterNativeImage.compressImage(file.path,
-          quality: 50, percentage: 50, targetWidth: 512, targetHeight: 512);
-
       filesToPass.add(file);
 
       // var saved = await ImageGallerySaver.saveImage(
