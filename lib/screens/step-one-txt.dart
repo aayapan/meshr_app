@@ -12,9 +12,10 @@ import 'package:meshr_app/widgets/proceed-button.dart';
 
 import 'package:meshr_app/linker/request_id_generator.dart';
 
-
 class GenerateStepOneText extends StatefulWidget {
-  GenerateStepOneText({Key? key,}) : super(key: key);
+  GenerateStepOneText({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<GenerateStepOneText> createState() => _GenerateStepOneTextState();
@@ -24,9 +25,6 @@ class _GenerateStepOneTextState extends State<GenerateStepOneText> {
   String _enteredText = '';
   late int charCounter;
   bool _clickable = false;
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +72,7 @@ class _GenerateStepOneTextState extends State<GenerateStepOneText> {
                         _enteredText = value;
                         charCounter = 0;
                         for (int i = 0; i < _enteredText.length; i++) {
-                          if(_enteredText[i] != " "){
+                          if (_enteredText[i] != " ") {
                             charCounter++;
                           }
                         }
@@ -105,9 +103,26 @@ class _GenerateStepOneTextState extends State<GenerateStepOneText> {
                   ProceedButton(
                     text: "Proceed",
                     clickable: _clickable,
-                    onPressed: () { 
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                          "Image Generating! Please wait...",
+                          style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15),
+                          textAlign: TextAlign.center,
+                        ),
+                        backgroundColor: Color(0xFFEFB83C),
+                        duration: Duration(seconds: 30),
+                        behavior: SnackBarBehavior.floating,
+                        margin:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 60),
+                        elevation: 3,
+                      ));
                       Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => GenerateStepTwoText(userPrompt: _enteredText)));
+                          builder: (context) =>
+                              GenerateStepTwoText(userPrompt: _enteredText)));
                     },
                   )
                 ],
@@ -116,11 +131,17 @@ class _GenerateStepOneTextState extends State<GenerateStepOneText> {
           ],
         ),
       ),
-      bottomNavigationBar: GenerateBottomNav(helpFunction: (){
-        Navigator.push(context, MaterialPageRoute(builder: ((context) {
-          return HelpScreen(header: "Define!", footer: "Find the right words that would define your target design, the more specific your definition is the more specific the output will be.",);
-        })));
-      },),
+      bottomNavigationBar: GenerateBottomNav(
+        helpFunction: () {
+          Navigator.push(context, MaterialPageRoute(builder: ((context) {
+            return HelpScreen(
+              header: "Define!",
+              footer:
+                  "Find the right words that would define your target design, the more specific your definition is the more specific the output will be.",
+            );
+          })));
+        },
+      ),
     );
   }
 }

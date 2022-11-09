@@ -33,7 +33,7 @@ import 'package:path/path.dart' as path;
 import 'S3_url_maker.dart';
 
 
-Uri PYTHON_SERVER = Uri.parse("http://15.206.184.99:8080/req");
+Uri PYTHON_SERVER = Uri.parse("http://52.66.215.115:8080/req");
 
 
 

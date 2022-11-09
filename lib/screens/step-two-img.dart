@@ -131,11 +131,11 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
                           textAlign: TextAlign.center,
                         ),
                         backgroundColor: Color(0xFFEFB83C),
-                        duration: Duration(seconds: 3),
+                        duration: Duration(seconds: 8),
                         behavior: SnackBarBehavior.floating,
                         margin:
                             EdgeInsets.symmetric(vertical: 15, horizontal: 60),
-                        elevation: 0,
+                        elevation: 3,
                       ));
 
                       FocusManager.instance.primaryFocus?.unfocus();
@@ -156,9 +156,9 @@ class _GenerateStepTwoImageState extends State<GenerateStepTwoImage> {
                                   )));
                       print("RESULT: $result");
                       if (result) {
-                        setState(() {
-                          widget.files = [];
-                        });
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: ((context) {
+                          return GenerateStepTwoImage(files: widget.files);
+                        })));
                       }
                     },
                   )
