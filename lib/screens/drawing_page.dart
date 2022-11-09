@@ -118,7 +118,6 @@ class _DrawingPageState extends State<DrawingPage> {
         children: [
           buildAllPaths(context),
           buildCurrentPath(context),
-          buildStrokeToolbar(),
           buildColorToolbar(),
         ],
       ),
@@ -219,21 +218,6 @@ class _DrawingPageState extends State<DrawingPage> {
     linesStreamController.add(lines);
   }
 
-  Widget buildStrokeToolbar() {
-    return Positioned(
-      bottom: 100.0,
-      right: 10.0,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          buildStrokeButton(5.0),
-          buildStrokeButton(10.0),
-          buildStrokeButton(15.0),
-        ],
-      ),
-    );
-  }
 
   Widget buildStrokeButton(double strokeWidth) {
     return GestureDetector(
