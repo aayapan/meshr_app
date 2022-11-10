@@ -33,7 +33,7 @@ import 'package:path/path.dart' as path;
 import 'S3_url_maker.dart';
 
 
-Uri PYTHON_SERVER = Uri.parse("http://13.232.181.92:8080/req");
+
 
 
 
@@ -101,6 +101,10 @@ class RequestHandler{
   Future<List<String>> request(Map body) async{
 
     List<String> downloadLink = [];
+
+    var ipres = await http.post(Uri.parse('http://13.233.198.233/generateProcessIP'));
+    Uri PYTHON_SERVER = Uri.parse(jsonDecode(ipres.body)['IPAddress']);
+    print(PYTHON_SERVER);
 
     try{
       var response = await http.post(PYTHON_SERVER, body: json.encode(body), headers: FileHandler.httpHeaders);
