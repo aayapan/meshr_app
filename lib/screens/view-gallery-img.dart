@@ -9,6 +9,7 @@ import 'package:meshr_app/screens/gallery_image.dart';
 import 'package:meshr_app/screens/step-one-img.dart';
 import 'package:meshr_app/screens/step-one-txt.dart';
 import 'package:path/path.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 
 class ViewGalleryImg extends StatelessWidget {
   String img;
@@ -49,6 +50,32 @@ class ViewGalleryImg extends StatelessWidget {
       }
     }
 
+    Future<void> saveToGallery(File file) async {
+      try {
+        if (await file.exists()) {
+          await GallerySaver.saveImage(file.path).then((value) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                "Image Saved to Gallery!",
+                style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15),
+                textAlign: TextAlign.center,
+              ),
+              backgroundColor: Color(0xFFEFB83C),
+              duration: Duration(seconds: 4),
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.symmetric(vertical: 25, horizontal: 60),
+              elevation: 0,
+            ));
+          });
+        }
+      } catch (e) {
+        print(e.toString());
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -71,6 +98,17 @@ class ViewGalleryImg extends StatelessWidget {
           color: Color(0xFFEFB83C),
         ),
         actions: [
+
+          IconButton(
+            onPressed: () async {
+              await saveToGallery(File(img));
+            },
+            icon: ImageIcon(
+              AssetImage("assets/images/save-icon.png"),
+            ),
+            iconSize: 40.0,
+            color: Color(0xFFEFB83C),
+          ),
           
           IconButton(
             onPressed: () async {
