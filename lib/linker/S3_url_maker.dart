@@ -9,7 +9,7 @@ class UrlMaker {
   Uri downloadUrl = Uri();
   String fileName = '';
 
-  Uri url = Uri.parse('http://13.233.198.233/generatePresignedUrl');
+  Uri url = Uri.parse('http://13.235.69.147/generatePresignedUrl');
 
   Future<Uri> createURL(String fileType) async{
 

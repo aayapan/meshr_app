@@ -102,7 +102,8 @@ class RequestHandler{
 
     List<String> downloadLink = [];
 
-    var ipres = await http.post(Uri.parse('http://13.233.198.233/generateProcessIP'));
+    var ipres = await http.post(Uri.parse('http://13.235.69.147/generateProcessIp'));
+    print(ipres);
     Uri PYTHON_SERVER = Uri.parse('http://'+jsonDecode(ipres.body)['IPAddress'] + ":8080/req");
     print(PYTHON_SERVER);
 
