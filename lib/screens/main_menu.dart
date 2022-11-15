@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:hive/hive.dart';
@@ -38,19 +39,10 @@ class _MainMenuState extends State<MainMenu> {
     // TODO: implement initState
     initClearAppDirectory();
     googleDisplayName = user.displayName!.split(" ")[0];
-    if (_myBox.get('OBJLIST') == null && _myBox.get('THUMBLIST') == null && _myBox.get('IMGLIST') == null) {
-      print("INIT"); // Debug purposes
-      print(_myBox.get('OBJLIST'));
-      print(_myBox.get('IMGLIST'));
-      print(_myBox.get('THUMBLIST'));
-      fls.createInitialData();
-      print(_myBox.get('OBJLIST'));
-      print(_myBox.get('IMGLIST'));
-      print(_myBox.get('THUMBLIST'));
-    } else {
-      print("LOAD"); // Debug purposes
-      fls.loadData();
-    }
+
+    print("LOAD"); // Debug purposes
+    fls.loadData();
+
     super.initState();
   }
 
@@ -207,21 +199,21 @@ class _MainMenuState extends State<MainMenu> {
                   text: "Image-to-Mesh",
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                            "Currently in development!",
-                            style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w700,
-                                fontSize: 15),
-                            textAlign: TextAlign.center,
-                          ),
-                          backgroundColor: Color(0xFFEFB83C),
-                          duration: Duration(seconds: 3),
-                          behavior: SnackBarBehavior.floating,
-                          margin: EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 60),
-                          elevation: 0,
-                        ));
+                      content: Text(
+                        "Currently in development!",
+                        style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15),
+                        textAlign: TextAlign.center,
+                      ),
+                      backgroundColor: Color(0xFFEFB83C),
+                      duration: Duration(seconds: 3),
+                      behavior: SnackBarBehavior.floating,
+                      margin:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 60),
+                      elevation: 0,
+                    ));
                     // Navigator.of(context).push(MaterialPageRoute(
                     //     builder: (context) => GenerateStepOne3D()));
                   },

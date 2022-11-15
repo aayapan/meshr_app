@@ -112,12 +112,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: _email!, password: _password!);
         await FirebaseAuth.instance.currentUser
-            ?.updateDisplayName('$_firstName $_lastName');
+            !.updateDisplayName('$_firstName $_lastName');
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => HomePage()),
             (Route<dynamic> route) => false);
         // add user details (Firestore)
-        addUserDetails();
+        await addUserDetails();
       } on FirebaseAuthException catch (e) {
         print(e);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
