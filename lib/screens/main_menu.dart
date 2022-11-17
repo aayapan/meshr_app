@@ -40,8 +40,21 @@ class _MainMenuState extends State<MainMenu> {
     initClearAppDirectory();
     googleDisplayName = user.displayName!.split(" ")[0];
 
-    print("LOAD"); // Debug purposes
-    fls.loadData();
+    if (_myBox.get('OBJLIST') == null &&
+        _myBox.get('THUMBLIST') == null &&
+        _myBox.get('IMGLIST') == null) {
+      print("INIT"); // Debug purposes
+      print(_myBox.get('OBJLIST'));
+      print(_myBox.get('IMGLIST'));
+      print(_myBox.get('THUMBLIST'));
+      fls.createInitialData();
+      print(_myBox.get('OBJLIST'));
+      print(_myBox.get('IMGLIST'));
+      print(_myBox.get('THUMBLIST'));
+    } else {
+      print("LOAD"); // Debug purposes
+      fls.loadData();
+    }
 
     super.initState();
   }
