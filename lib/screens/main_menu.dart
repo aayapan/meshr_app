@@ -213,7 +213,7 @@ class _MainMenuState extends State<MainMenu> {
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(
-                        "Currently in development!",
+                        "Coming Soon!",
                         style: TextStyle(
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w700,

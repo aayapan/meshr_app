@@ -129,7 +129,7 @@ class _GalleryMainState extends State<GalleryMain> {
                       onTap: () {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text(
-                            "Currently in development!",
+                            "Coming Soon!",
                             style: TextStyle(
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.w700,
