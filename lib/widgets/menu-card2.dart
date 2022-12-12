@@ -44,7 +44,7 @@ class _MainMenuCard2State extends State<MainMenuCard2> {
         onPressed: widget.onPressed,
         child: Container(
           padding: EdgeInsets.zero,
-          height: 65,
+          height: 130,
           width: widget.width,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +62,7 @@ class _MainMenuCard2State extends State<MainMenuCard2> {
                   style: TextStyle(
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w700,
-                      fontSize: 17,
+                      fontSize: 20,
                       color: Color(0xFF2D2B2B)),
                 )),
               ),
@@ -72,7 +72,7 @@ class _MainMenuCard2State extends State<MainMenuCard2> {
                       child: Image.asset(
                     widget.image,
                     fit: BoxFit.cover,
-                    width: 100,
+                    width: 120,
                   )),
                 ),
               ),

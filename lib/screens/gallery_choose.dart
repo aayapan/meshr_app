@@ -125,73 +125,73 @@ class _GalleryMainState extends State<GalleryMain> {
                     SizedBox(
                       height: 30,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                            "Coming Soon!",
-                            style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w700,
-                                fontSize: 15),
-                            textAlign: TextAlign.center,
-                          ),
-                          backgroundColor: Color(0xFFEFB83C),
-                          duration: Duration(seconds: 3),
-                          behavior: SnackBarBehavior.floating,
-                          margin: EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 60),
-                          elevation: 0,
-                        ));
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: (context) => Gallery3D()));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              clipBehavior: Clip.antiAlias,
-                              height: 150,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: Colors.white,
-                              ),
-                              child: Image.asset(
-                                'assets/images/mesh-thumb.png',
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 7,
-                            ),
-                            Text(
-                              "3D Models",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w700,
-                                fontSize: 20,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 7,
-                            ),
-                            Text(
-                              widget.objLength.toString(),
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w300,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    //       content: Text(
+                    //         "Coming Soon!",
+                    //         style: TextStyle(
+                    //             fontFamily: 'Roboto',
+                    //             fontWeight: FontWeight.w700,
+                    //             fontSize: 15),
+                    //         textAlign: TextAlign.center,
+                    //       ),
+                    //       backgroundColor: Color(0xFFEFB83C),
+                    //       duration: Duration(seconds: 3),
+                    //       behavior: SnackBarBehavior.floating,
+                    //       margin: EdgeInsets.symmetric(
+                    //           vertical: 15, horizontal: 60),
+                    //       elevation: 0,
+                    //     ));
+                    //     // Navigator.of(context).push(MaterialPageRoute(
+                    //     //     builder: (context) => Gallery3D()));
+                    //   },
+                    //   child: Container(
+                    //     margin: EdgeInsets.symmetric(horizontal: 20),
+                    //     child: Column(
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         Container(
+                    //           clipBehavior: Clip.antiAlias,
+                    //           height: 150,
+                    //           width: double.infinity,
+                    //           decoration: BoxDecoration(
+                    //             borderRadius: BorderRadius.circular(12),
+                    //             color: Colors.white,
+                    //           ),
+                    //           child: Image.asset(
+                    //             'assets/images/mesh-thumb.png',
+                    //             fit: BoxFit.fitWidth,
+                    //           ),
+                    //         ),
+                    //         SizedBox(
+                    //           height: 7,
+                    //         ),
+                    //         Text(
+                    //           "3D Models",
+                    //           style: TextStyle(
+                    //             color: Colors.white,
+                    //             fontFamily: 'Roboto',
+                    //             fontWeight: FontWeight.w700,
+                    //             fontSize: 20,
+                    //           ),
+                    //         ),
+                    //         SizedBox(
+                    //           height: 7,
+                    //         ),
+                    //         Text(
+                    //           widget.objLength.toString(),
+                    //           style: TextStyle(
+                    //             color: Colors.grey,
+                    //             fontFamily: 'Roboto',
+                    //             fontWeight: FontWeight.w300,
+                    //             fontSize: 18,
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ],
