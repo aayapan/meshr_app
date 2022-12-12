@@ -165,7 +165,7 @@ class _MainMenuState extends State<MainMenu> {
                         color: Colors.grey,
                       ),
                       Container(
-                        width: 70,
+                        width: 90,
                         color: Colors.white,
                         child: Center(
                             child: Text(
@@ -173,7 +173,7 @@ class _MainMenuState extends State<MainMenu> {
                           style: TextStyle(
                               fontFamily: 'Roboto',
                               fontWeight: FontWeight.w300,
-                              fontSize: 15),
+                              fontSize: 20),
                         )),
                       )
                     ],
