@@ -114,7 +114,7 @@ class _GenerateStepOneTextState extends State<GenerateStepOneText> {
                           textAlign: TextAlign.center,
                         ),
                         backgroundColor: Color(0xFFEFB83C),
-                        duration: Duration(seconds: 30),
+                        duration: Duration(seconds: 10),
                         behavior: SnackBarBehavior.floating,
                         margin:
                             EdgeInsets.symmetric(vertical: 15, horizontal: 60),
